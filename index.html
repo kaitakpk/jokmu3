@@ -1,0 +1,2178 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>โจ๊กหมู - ระบบสร้างภาพปฏิทินนำโชคย้อนยุค V3 Complete</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Charm:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+      :root {
+        --bg-dark: #090d16;
+        --bg-panel: #111827;
+        --primary: #dc2626;
+        --primary-hover: #b91c1c;
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
+        --border: #374151;
+
+        --paper-color: #f7f3e9;
+        --paper-ink: #111827;
+        --paper-red: #c22121;
+        --paper-border: rgba(194, 33, 33, 0.25);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Kanit', sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* === DASHBOARD LAYOUT === */
+      .dashboard {
+        display: flex;
+        height: 100vh;
+      }
+      .sidebar {
+        width: 440px;
+        background-color: var(--bg-panel);
+        padding: 20px;
+        border-right: 1px solid var(--border);
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        z-index: 10;
+      }
+      .main-view {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: radial-gradient(circle at center, #1e1b4b 0%, #090d16 100%);
+        overflow-y: auto;
+        position: relative;
+      }
+
+      /* === SIDEBAR CONTROLS === */
+      .app-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.6rem;
+        font-weight: 900;
+        color: white;
+      }
+      .app-brand svg {
+        height: 1.2em;
+        fill: #ef4444;
+      }
+      .app-desc {
+        color: var(--text-muted);
+        font-size: 0.8rem;
+        margin-top: -10px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 12px;
+      }
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .control-group label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        display: flex;
+        justify-content: space-between;
+      }
+      .control-group label span {
+        color: #fca5a5;
+      }
+      .form-control {
+        background: #030712;
+        color: white;
+        border: 1px solid var(--border);
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-family: 'Kanit', sans-serif;
+        font-size: 0.9rem;
+        outline: none;
+        transition: all 0.2s;
+        cursor: pointer;
+        width: 100%;
+      }
+      .form-control:focus,
+      .form-control:hover {
+        border-color: #ef4444;
+      }
+
+      .numbers-panel {
+        background: #030712;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .panel-section-title {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #f87171;
+        border-bottom: 1px solid #1f2937;
+        padding-bottom: 4px;
+        margin-bottom: 2px;
+      }
+      .inline-inputs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .grid-inputs-eight {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+      }
+      .number-sub-box {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .number-sub-box label {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+      }
+      .number-sub-box input {
+        width: 100%;
+        text-align: center;
+        padding: 6px;
+        font-size: 0.95rem;
+        font-weight: bold;
+        background: #111827;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        color: #ffffff;
+      }
+
+      .btn-generate {
+        background: linear-gradient(135deg, #ef4444, #991b1b);
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-family: 'Kanit', sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 5px;
+      }
+      .btn-generate:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 15px rgba(239, 68, 68, 0.35);
+      }
+
+      .btn-randomize {
+        background: #1e293b;
+        color: #38bdf8;
+        border: 1px solid #334155;
+        padding: 8px;
+        border-radius: 6px;
+        font-family: 'Kanit', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s;
+      }
+      .btn-randomize:hover {
+        background: #334155;
+        color: #ffffff;
+      }
+
+      /* === PREVIEW AREA === */
+      .preview-wrapper {
+        width: 100%;
+        max-width: 520px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .preview-container {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 2px dashed rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      }
+      .preview-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: none;
+      }
+      .empty-placeholder {
+        text-align: center;
+        color: var(--text-muted);
+        padding: 20px;
+      }
+      .empty-placeholder span {
+        font-size: 3.5rem;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      /* === ACTION BUTTONS === */
+      .action-bar {
+        display: none;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        width: 100%;
+      }
+      .btn-action {
+        background: var(--bg-panel);
+        border: 1px solid var(--border);
+        color: white;
+        padding: 12px 8px;
+        border-radius: 8px;
+        font-family: 'Kanit', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .btn-action:hover {
+        background: #1f2937;
+        transform: translateY(-2px);
+      }
+      .btn-action.save {
+        color: #38bdf8;
+        border-color: #0284c7;
+      }
+      .btn-action.share {
+        color: #34d399;
+        border-color: #059669;
+      }
+      .btn-action.copy {
+        color: #fbbf24;
+        border-color: #d97706;
+      }
+
+      /* === LOADING OVERLAY === */
+      .loader-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(17, 24, 39, 0.9);
+        backdrop-filter: blur(4px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 20;
+        border-radius: 16px;
+        display: none;
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        border-top-color: #ef4444;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-bottom: 12px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* =========================================================
+         CANVAS RENDER CONTAINER (1080x1080)
+         ========================================================= */
+      .render-container {
+        position: fixed;
+        top: 0;
+        left: -9999px;
+        width: 1080px;
+        height: 1080px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #1e1e1e;
+      }
+
+      .calendar-sheet {
+        width: 1080px;
+        height: 1080px;
+        background-color: var(--paper-color);
+        background-image:
+          radial-gradient(rgba(0, 0, 0, 0.015) 15%, transparent 20%),
+          linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+        background-size:
+          4px 4px,
+          100% 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 55px 50px 40px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      .calendar-sheet::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle,
+          rgba(0, 0, 0, 0) 65%,
+          rgba(139, 92, 26, 0.06) 100%
+        );
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      .calendar-tear-off {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 38px;
+        background: #2b0c11;
+        border-bottom: 4px solid #1a060a;
+        z-index: 20;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 100px;
+      }
+      .tear-bolt {
+        width: 12px;
+        height: 12px;
+        background: linear-gradient(135deg, #eab308, #ca8a04);
+        border-radius: 50%;
+        border: 1px solid #854d0e;
+        box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.4);
+      }
+
+      .cal-border-outer {
+        position: absolute;
+        inset: 48px 22px 22px;
+        border: 3px solid var(--paper-red);
+        pointer-events: none;
+        z-index: 1;
+      }
+      .cal-border-inner {
+        position: absolute;
+        inset: 55px 29px 29px;
+        border: 1px solid var(--paper-red);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .cal-flag-bg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 620px;
+        height: 620px;
+        border-radius: 50%;
+        object-fit: cover;
+        opacity: 0.07;
+        z-index: 1;
+        pointer-events: none;
+        filter: grayscale(10%);
+      }
+
+      .cal-flag-real {
+        position: absolute;
+        top: 65px;
+        left: 38px;
+        width: 105px;
+        height: 70px;
+        border-radius: 8px;
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+        object-fit: cover;
+        z-index: 5;
+        border: 2px solid var(--paper-red);
+      }
+
+      /* HEADER SECTION */
+      .cal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        height: 105px;
+        border-bottom: 2px dashed var(--paper-border);
+        padding-bottom: 12px;
+        z-index: 2;
+        margin-top: 10px;
+      }
+      .cal-header-left {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 115px;
+      }
+      .cal-thai-month {
+        font-size: 44px;
+        font-weight: 800;
+        color: var(--paper-red);
+        line-height: 1.1;
+        letter-spacing: -0.5px;
+      }
+      .cal-thai-lunar {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--paper-ink);
+        margin-top: 6px;
+        opacity: 0.85;
+      }
+      .cal-header-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .cal-eng-date {
+        text-align: right;
+      }
+      .cal-eng-month {
+        font-size: 32px;
+        font-weight: 900;
+        color: var(--paper-red);
+        line-height: 1;
+        letter-spacing: 1px;
+      }
+      .cal-solar-label {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--paper-ink);
+        opacity: 0.6;
+        margin-top: 3px;
+      }
+      .cal-vertical-chinese {
+        writing-mode: vertical-rl;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--paper-ink);
+        line-height: 1;
+        letter-spacing: 4px;
+        font-family: 'Sarabun', serif;
+      }
+
+      /* === MIDDLE AREA === */
+      .cal-middle {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 280px 1fr 400px;
+        gap: 20px;
+        padding: 16px 0;
+        z-index: 2;
+        border-bottom: 2px dashed var(--paper-border);
+        align-items: center;
+      }
+
+      /* คอลัมน์ซ้าย: เลขเด่น */
+      .cal-den-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-right: 2px dashed var(--paper-border);
+        padding-right: 15px;
+        height: 100%;
+      }
+      .cal-den-badge {
+        font-size: 28px;
+        font-weight: 900;
+        color: var(--paper-color);
+        background-color: var(--paper-red);
+        padding: 6px 24px;
+        border-radius: 4px;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .cal-den-nums-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0px;
+      }
+      /* ✅ แก้ไข: ขยายเลขเด่นยักษ์ */
+      .cal-den-giant {
+        font-size: 200px;
+        font-weight: 900;
+        color: var(--paper-ink);
+        line-height: 0.8;
+        font-family: 'Sarabun', serif;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+      }
+      .cal-den-secondary {
+        font-size: 130px;
+        font-weight: 900;
+        color: var(--paper-red);
+        line-height: 0.8;
+        font-family: 'Sarabun', serif;
+        opacity: 0.95;
+      }
+
+      /* คอลัมน์กลาง: ตารางมงคล + วิ่งรูด */
+      .cal-center-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        border-right: 2px dashed var(--paper-border);
+        padding-right: 15px;
+      }
+      .cal-run-badge {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--paper-red);
+        border: 2px solid var(--paper-red);
+        padding: 3px 15px;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+      }
+      .cal-run-val {
+        font-size: 42px;
+        font-weight: 800;
+        color: var(--paper-ink);
+        letter-spacing: 4px;
+        margin-bottom: 12px;
+      }
+
+      .lucky-grid-container {
+        width: 210px;
+        height: 210px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .grid-lines {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        pointer-events: none;
+      }
+      .grid-line-h {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--paper-red);
+      }
+      .grid-line-v {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: var(--paper-red);
+      }
+      .line-h1 {
+        top: 33.33%;
+      }
+      .line-h2 {
+        top: 66.66%;
+      }
+      .line-v1 {
+        left: 33.33%;
+      }
+      .line-v2 {
+        left: 66.66%;
+      }
+      .line-border-top {
+        top: 0;
+        left: 33.33%;
+        right: 33.33%;
+        height: 2px;
+        background: var(--paper-red);
+        position: absolute;
+      }
+      .line-border-bottom {
+        bottom: 0;
+        left: 33.33%;
+        right: 33.33%;
+        height: 2px;
+        background: var(--paper-red);
+        position: absolute;
+      }
+      .line-border-left {
+        left: 0;
+        top: 33.33%;
+        bottom: 33.33%;
+        width: 2px;
+        background: var(--paper-red);
+        position: absolute;
+      }
+      .line-border-right {
+        right: 0;
+        top: 33.33%;
+        bottom: 33.33%;
+        width: 2px;
+        background: var(--paper-red);
+        position: absolute;
+      }
+
+      .grid-number {
+        position: absolute;
+        font-size: 44px;
+        font-weight: 900;
+        color: var(--paper-red);
+        transform: translate(-50%, -50%);
+        font-family: 'Sarabun', serif;
+      }
+      .num-pos-top {
+        top: 16.66%;
+        left: 50%;
+      }
+      .num-pos-left {
+        top: 50%;
+        left: 16.66%;
+      }
+      .num-pos-center {
+        top: 50%;
+        left: 50%;
+        font-size: 54px;
+        color: var(--paper-ink);
+      }
+      .num-pos-right {
+        top: 50%;
+        left: 83.33%;
+      }
+      .num-pos-bottom {
+        top: 83.33%;
+        left: 50%;
+      }
+
+      /* คอลัมน์ขวา: สองตัว + เบิ้ล */
+      .cal-right-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 10px;
+        height: 100%;
+      }
+      .column-title-badge {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--paper-red);
+        margin-bottom: 16px;
+        border-bottom: 2px dashed var(--paper-border);
+        padding-bottom: 6px;
+        width: fit-content;
+      }
+      .grid-two-digits {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px 12px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      /* ✅ แก้ไข: ขยายเลขสองตัว */
+      .two-digit-item {
+        font-size: 58px;
+        font-weight: 800;
+        color: var(--paper-ink);
+        font-family: 'Sarabun', serif;
+        letter-spacing: -1px;
+      }
+      .double-row-sheet {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-top: 1px dashed var(--paper-border);
+        padding-top: 12px;
+      }
+      .double-badge {
+        font-size: 18px;
+        font-weight: 900;
+        color: var(--paper-color);
+        background-color: var(--paper-red);
+        padding: 2px 12px;
+        border-radius: 4px;
+      }
+      /* ✅ แก้ไข: ขยายเลขเบิ้ล */
+      .double-values {
+        display: flex;
+        gap: 24px;
+        font-size: 54px;
+        font-weight: 800;
+        color: var(--paper-ink);
+        font-family: 'Sarabun', serif;
+      }
+
+      /* =========================================================
+         ✅ แก้ไขหลัก: เลขสามตัวตรง — เส้นประไม่ทับตัวเลขอีกต่อไป
+         วิธี: ใช้ column-gap ของ grid เป็นพื้นที่ระหว่างช่อง
+               แล้ววาดเส้นคั่นด้วย pseudo-element ::after
+               ที่ position: absolute ไม่รบกวน text flow เลย
+         ========================================================= */
+      .cal-bottom-row {
+        /* ✅ เปลี่ยนจาก height: 140px ที่คับแคบ → auto ให้ขยายตามเนื้อหา */
+        height: auto;
+        min-height: 165px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 2;
+        border-bottom: 2px dashed var(--paper-border);
+        padding-bottom: 10px;
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+      .grid-three-digits {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        /* ✅ เพิ่ม column-gap ให้มีพื้นที่สำหรับเส้นคั่น pseudo-element */
+        gap: 10px 28px;
+        text-align: center;
+        padding: 0 10px;
+      }
+      /* ✅ แก้ไขหลัก: เอา border-right ออก ใช้ position: relative แทน */
+      .three-digit-item {
+        font-size: 62px;
+        font-weight: 900;
+        color: var(--paper-ink);
+        font-family: 'Sarabun', serif;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* สำคัญ: ต้อง position: relative เพื่อให้ ::after วางตำแหน่งได้ */
+        position: relative;
+        /* ไม่มี border-right แล้ว! */
+      }
+      /* ✅ ใช้ ::after วาดเส้นคั่นด้านขวา วางอยู่ใน column-gap
+             ไม่ทับตัวเลขเลยเพราะอยู่นอก box ของ text */
+      .three-digit-item:not(:nth-child(4n))::after {
+        content: '';
+        position: absolute;
+        /* วางออกด้านขวาตรงกลาง gap (gap = 28px ดังนั้น right = -14px) */
+        right: -14px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 65%;
+        width: 0;
+        /* เส้นประสีแดงคลาสสิกด้วย border-right แทน background */
+        border-right: 2px dashed var(--paper-red);
+        opacity: 0.35;
+      }
+
+      /* === FOOTER BRANDING === */
+      .cb-footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 15;
+        margin: 15px 0 10px;
+      }
+      .cb-brand-pill {
+        background: var(--paper-color);
+        padding: 6px 30px;
+        border-radius: 50px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border: 2px solid var(--paper-red);
+      }
+      .cb-brand {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--paper-ink);
+      }
+      .cb-brand-pill svg {
+        height: 24px;
+        fill: var(--paper-red);
+      }
+
+      /* BANNER: วันในสัปดาห์ 3 ภาษา */
+      .cal-day-banner {
+        height: 65px;
+        background-color: var(--paper-red);
+        color: var(--paper-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        border-radius: 4px;
+        margin: 12px 0;
+        z-index: 2;
+        box-shadow: 0 4px 8px rgba(194, 33, 33, 0.15);
+      }
+      .banner-thai {
+        font-size: 32px;
+        font-weight: 900;
+        letter-spacing: 1px;
+      }
+      .banner-chinese {
+        font-size: 26px;
+        font-weight: 800;
+        font-family: 'Sarabun', serif;
+      }
+      .banner-eng {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+
+      /* FOOTER SECTION */
+      .cal-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 10px;
+        height: 80px;
+        z-index: 2;
+      }
+      .cal-footer-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .farming-icon {
+        width: 50px;
+        height: 50px;
+        fill: var(--paper-ink);
+        opacity: 0.75;
+      }
+      .cal-footer-lunar-label {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--paper-ink);
+        opacity: 0.8;
+      }
+      .cal-footer-center {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--paper-red);
+        font-family: 'Sarabun', serif;
+        letter-spacing: 1px;
+      }
+      .cal-footer-right {
+        text-align: right;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--paper-ink);
+        opacity: 0.75;
+        line-height: 1.2;
+      }
+
+      /* ตราปั๊มแดงโบราณ */
+      .stamp-seal {
+        position: absolute;
+        bottom: 210px;
+        left: 205px;
+        width: 90px;
+        height: 90px;
+        border: 2px double rgba(194, 33, 33, 0.8);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(-15deg);
+        pointer-events: none;
+        z-index: 3;
+      }
+      .stamp-seal::before {
+        content: 'สำนัก\Aโจ๊กหมู';
+        white-space: pre-wrap;
+        text-align: center;
+        font-family: 'Charm', cursive;
+        color: rgba(194, 33, 33, 0.8);
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+
+      /* ตราประทับดาว */
+      .auspicious-stars-badge {
+        position: absolute;
+        top: 170px;
+        right: 480px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: rotate(5deg);
+        border: 2px dashed var(--paper-red);
+        padding: 4px 10px;
+        border-radius: 6px;
+        z-index: 4;
+      }
+      .auspicious-title {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--paper-red);
+        margin-bottom: 2px;
+      }
+      .auspicious-stars {
+        color: var(--paper-red);
+        font-size: 14px;
+        letter-spacing: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="app-brand">
+          <svg viewBox="0 0 512 512">
+            <path
+              d="M256 32C132.3 32 32 132.3 32 256s100.3 224 224 224 224-100.3 224-224S379.7 32 256 32zm115.8 244.6c-13.2 13.2-34.5 13.2-47.7 0-13.2-13.2-13.2-34.5 0-47.7 13.2-13.2 34.5-13.2 47.7 0 13.2 13.2 13.2 34.5 0 47.7zm-183.6 0c-13.2 13.2-34.5 13.2-47.7 0-13.2-13.2-13.2-34.5 0-47.7 13.2-13.2 34.5-13.2 47.7 0 13.2 13.2 13.2 34.5 0 47.7zM256 400c-53 0-96-43-96-96h192c0 53-43 96-96 96z"
+            />
+          </svg>
+          สำนักโจ๊กหมูพารวย
+        </div>
+        <div class="app-desc">
+          สลับเลขสุ่มดั้งเดิม V3 เข้าสู่แผ่นปฏิทินจีนโบราณที่น่าเชื่อถือขั้นสุด
+        </div>
+
+        <div class="control-group">
+          <label>สกินของกระดาษปฏิทิน</label>
+          <select id="paperSkin" class="form-control" onchange="updateSkin()">
+            <option value="cream">โบราณนวลตา (Retro Cream)</option>
+            <option value="red">แดงเฮงมงคล (Auspicious Red)</option>
+            <option value="white">ขาวสะอาดคมชัด (Modern White)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>ประเภทหวย / แนวทาง</label>
+          <select
+            id="lotteryType"
+            class="form-control"
+            onchange="updateLotteryTitle()"
+          >
+            <optgroup label="🇹🇭 หวยไทย">
+              <option value="thai_gov">หวยรัฐบาลไทย</option>
+            </optgroup>
+            <optgroup label="🇱🇦 หวยลาว">
+              <option value="lao_normal">ลาว ปกติ</option>
+              <option value="lao_dev" selected>ลาว พัฒนา</option>
+              <option value="lao_extra">ลาว Extra</option>
+              <option value="lao_tv">ลาว TV</option>
+              <option value="lao_hd">ลาว HD</option>
+              <option value="lao_star">ลาว Star</option>
+              <option value="lao_samakkhi">ลาว สามัคคี</option>
+              <option value="lao_asean">ลาว อาเซียน</option>
+              <option value="lao_vip">ลาว VIP</option>
+              <option value="lao_samakkhi_vip">ลาว สามัคคี VIP</option>
+              <option value="lao_star_vip">ลาว Star VIP</option>
+              <option value="lao_redcross">ลาว กาชาด</option>
+            </optgroup>
+            <optgroup label="🇻🇳 หวยฮานอย">
+              <option value="hanoi_normal">ฮานอย ปกติ</option>
+              <option value="hanoi_special">ฮานอย พิเศษ</option>
+              <option value="hanoi_vip">ฮานอย VIP</option>
+              <option value="hanoi_extra">ฮานอย EXTRA</option>
+              <option value="hanoi_star">ฮานอย Star</option>
+              <option value="hanoi_asean">ฮานอย อาเซียน</option>
+              <option value="hanoi_hd">ฮานอย HD</option>
+              <option value="hanoi_tv">ฮานอย TV</option>
+              <option value="hanoi_redcross">ฮานอย กาชาด</option>
+              <option value="hanoi_samakkhi">ฮานอย สามัคคี</option>
+              <option value="hanoi_dev">ฮานอย พัฒนา</option>
+              <option value="hanoi_late">ฮานอย รอบดึก</option>
+            </optgroup>
+            <optgroup label="🇲🇾 หวยมาเลย์">
+              <option value="malay_normal">มาเลย์ ปกติ</option>
+              <option value="malay_vip">มาเลย์ VIP</option>
+              <option value="malay_star">มาเลย์ Star</option>
+            </optgroup>
+            <optgroup label="📈 หวยหุ้นต่างประเทศ">
+              <option value="stock_thai">ไทย (ปกติ)</option>
+              <option value="stock_thai_evening">ไทยเย็น</option>
+              <option value="stock_ch9">หุ้นช่อง 9</option>
+              <option value="stock_nikkei_m">นิเคอิ (เช้า)</option>
+              <option value="stock_nikkei_a">นิเคอิ (บ่าย)</option>
+              <option value="stock_china_m">จีน (เช้า)</option>
+              <option value="stock_china_a">จีน (บ่าย)</option>
+              <option value="stock_hsi_m">ฮั่งเส็ง (เช้า)</option>
+              <option value="stock_hsi_a">ฮั่งเส็ง (บ่าย)</option>
+              <option value="stock_taiwan">ไต้หวัน</option>
+              <option value="stock_korea">เกาหลี</option>
+              <option value="stock_sg">สิงคโปร์</option>
+              <option value="stock_india">อินเดีย</option>
+              <option value="stock_egypt">อียิปต์</option>
+              <option value="stock_russia">รัสเซีย</option>
+              <option value="stock_ftse">อังกฤษ</option>
+              <option value="stock_dax">เยอรมัน</option>
+              <option value="stock_dow">ดาวโจนส์ ปกติ</option>
+              <option value="stock_euro">ยูโร</option>
+            </optgroup>
+            <optgroup label="🎯 ยี่กี">
+              <option value="yeekee_normal">ยี่กี ธรรมดา</option>
+              <option value="yeekee_vip">ยี่กี VIP</option>
+              <option value="yeekee_star">ยี่กี Star</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>วันที่งวด (ระบบจะคำนวณข้างขึ้นแรมให้อัตโนมัติ)</label>
+          <input
+            type="date"
+            id="dateInput"
+            class="form-control"
+            onchange="calculateDatesAndRender()"
+          />
+        </div>
+
+        <div class="control-group">
+          <label>ระดับมงคล / ความมั่นใจงวดนี้</label>
+          <select
+            id="starsRating"
+            class="form-control"
+            onchange="updateStarsPreview()"
+          >
+            <option value="⭐⭐⭐⭐⭐">5 ดาวมหาเฮง (ดีเลิศ)</option>
+            <option value="⭐⭐⭐⭐">4 ดาวมหาลาภ (ดีมาก)</option>
+            <option value="⭐⭐⭐">3 ดาวนำโชค (ปานกลาง)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 4px;
+            "
+          >
+            <label style="margin: 0">ชุดตัวเลขแนวทางนำโชค</label>
+            <button class="btn-randomize" onclick="randomizeAllNumbers()">
+              🎲 สุ่มเลขชุดใหม่
+            </button>
+          </div>
+
+          <div class="numbers-panel">
+            <div class="panel-section-title">เลขเด่น (2 ตัวหลัก)</div>
+            <div class="inline-inputs">
+              <div class="number-sub-box">
+                <label>เด่นหลัก</label>
+                <input
+                  type="text"
+                  id="numDen1"
+                  maxlength="1"
+                  value="5"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <label>เด่นรอง</label>
+                <input
+                  type="text"
+                  id="numDen2"
+                  maxlength="1"
+                  value="9"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+            </div>
+
+            <div class="panel-section-title">เลขตารางมงคล 5 ทิศทาง</div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 6px;
+              "
+            >
+              <div class="number-sub-box">
+                <label>บน</label>
+                <input
+                  type="text"
+                  id="gridTop"
+                  maxlength="1"
+                  value="3"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <label>ซ้าย</label>
+                <input
+                  type="text"
+                  id="gridLeft"
+                  maxlength="1"
+                  value="0"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <label style="color: #f87171; font-weight: bold">กลาง</label>
+                <input
+                  type="text"
+                  id="gridCenter"
+                  maxlength="1"
+                  value="5"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <label>ขวา</label>
+                <input
+                  type="text"
+                  id="gridRight"
+                  maxlength="1"
+                  value="7"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <label>ล่าง</label>
+                <input
+                  type="text"
+                  id="gridBottom"
+                  maxlength="1"
+                  value="6"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+            </div>
+
+            <div class="panel-section-title">วิ่ง / รูด</div>
+            <div class="number-sub-box">
+              <input
+                type="text"
+                id="numRun"
+                value="5 - 9"
+                oninput="syncInputsToCanvas()"
+              />
+            </div>
+
+            <div class="panel-section-title">เลขสองตัว (8 ชุด)</div>
+            <div class="grid-inputs-eight">
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="two1"
+                  maxlength="2"
+                  value="59"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="two2"
+                  maxlength="2"
+                  value="95"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="two3"
+                  maxlength="2"
+                  value="52"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="two4"
+                  maxlength="2"
+                  value="19"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="two5"
+                  maxlength="2"
+                  value="57"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="two6"
+                  maxlength="2"
+                  value="93"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="two7"
+                  maxlength="2"
+                  value="50"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="two8"
+                  maxlength="2"
+                  value="89"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+            </div>
+
+            <div class="panel-section-title">เลขเบิ้ล (2 ชุด)</div>
+            <div class="inline-inputs">
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="double1"
+                  maxlength="2"
+                  value="55"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="double2"
+                  maxlength="2"
+                  value="99"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+            </div>
+
+            <div class="panel-section-title">เลขสามตัว (8 ชุด)</div>
+            <div class="grid-inputs-eight">
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="three1"
+                  maxlength="3"
+                  value="592"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="three2"
+                  maxlength="3"
+                  value="159"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="three3"
+                  maxlength="3"
+                  value="905"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="three4"
+                  maxlength="3"
+                  value="549"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="three5"
+                  maxlength="3"
+                  value="859"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="three6"
+                  maxlength="3"
+                  value="957"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="three7"
+                  maxlength="3"
+                  value="539"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+              <div class="number-sub-box">
+                <input
+                  type="text"
+                  id="three8"
+                  maxlength="3"
+                  value="659"
+                  oninput="syncInputsToCanvas()"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-generate" onclick="generatePremiumImage()">
+          🔮 อัปเดตข้อมูล & สลักภาพโบราณ
+        </button>
+      </div>
+
+      <!-- MAIN VIEW -->
+      <div class="main-view">
+        <div class="preview-wrapper">
+          <div class="preview-container" id="previewContainer">
+            <div id="loader" class="loader-overlay">
+              <div class="spinner"></div>
+              <p
+                style="
+                  font-weight: 600;
+                  font-size: 1.1rem;
+                  letter-spacing: 0.5px;
+                "
+              >
+                กำลังจำลองภาพพิมพ์บล็อกไม้ปฏิทินย้อนยุค...
+              </p>
+            </div>
+            <div id="placeholder" class="empty-placeholder">
+              <span>🏮</span>
+              <p style="font-weight: bold">ปฏิทินจีนย้อนยุคสำนักโจ๊กหมู</p>
+              <p style="font-size: 0.85rem; margin-top: 5px; color: #6b7280">
+                ปรับแต่งหรือสุ่มเลขแนวทาง แล้วกด "สลักภาพ" เพื่อดูพรีวิว
+              </p>
+            </div>
+            <img
+              id="previewImg"
+              class="preview-image"
+              alt="Lottery Premium Preview"
+            />
+          </div>
+          <div class="action-bar" id="actionBar">
+            <button class="btn-action save" onclick="saveImage()">
+              💾 บันทึกรูปภาพ
+            </button>
+            <button
+              class="btn-action share"
+              id="shareBtn"
+              onclick="shareImage()"
+            >
+              📤 แชร์ด่วน
+            </button>
+            <button class="btn-action copy" onclick="copyCaption()">
+              📋 คัดลอกแคปชั่น
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         HIDDEN CANVAS BOARD FOR RENDERING (1080x1080)
+         ========================================================= -->
+    <div id="renderZone" class="render-container">
+      <div class="calendar-sheet" id="calendarSheet">
+        <div class="calendar-tear-off">
+          <div class="tear-bolt"></div>
+          <div class="tear-bolt"></div>
+          <div class="tear-bolt"></div>
+          <div class="tear-bolt"></div>
+        </div>
+
+        <img
+          id="rFlagBg"
+          class="cal-flag-bg"
+          src=""
+          alt="flag-bg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="rFlagReal"
+          class="cal-flag-real"
+          src=""
+          alt="flag-real"
+          crossorigin="anonymous"
+        />
+
+        <div class="cal-border-outer"></div>
+        <div class="cal-border-inner"></div>
+        <div class="stamp-seal"></div>
+
+        <div class="auspicious-stars-badge">
+          <div class="auspicious-title">ระดับมงคลวันนี้</div>
+          <div class="auspicious-stars" id="previewStars">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <!-- HEADER -->
+        <div class="cal-header">
+          <div class="cal-header-left">
+            <div class="cal-thai-month" id="rThaiMonthYear">
+              5 มิถุนายน 2569
+            </div>
+            <div class="cal-thai-lunar" id="rThaiLunarHeader">
+              แรม ๕ ค่ำ เดือน ๗ ปีมะเมีย
+            </div>
+          </div>
+          <div class="cal-header-right">
+            <div class="cal-eng-date">
+              <div class="cal-eng-month" id="rEngMonthYear">JUNE 2026</div>
+              <div class="cal-solar-label" id="rLotteryTypeName">
+                แนวทางลาวพัฒนา
+              </div>
+            </div>
+            <div class="cal-vertical-chinese" id="rChiSolarLabel">
+              陽曆六月五日
+            </div>
+          </div>
+        </div>
+
+        <!-- MIDDLE -->
+        <div class="cal-middle">
+          <!-- คอลัมน์ 1: เลขเด่น -->
+          <div class="cal-den-column">
+            <div class="cal-den-badge">เด่น</div>
+            <div class="cal-den-nums-wrapper">
+              <div class="cal-den-giant" id="rDen1">5</div>
+              <div class="cal-den-secondary" id="rDen2">9</div>
+            </div>
+          </div>
+
+          <!-- คอลัมน์ 2: ตารางมงคล + วิ่งรูด -->
+          <div class="cal-center-column">
+            <div class="cal-run-badge">วิ่ง / รูด</div>
+            <div class="cal-run-val" id="rRun">5 - 9</div>
+            <div class="lucky-grid-container">
+              <div class="grid-lines">
+                <div class="grid-line-h line-h1"></div>
+                <div class="grid-line-h line-h2"></div>
+                <div class="grid-line-v line-v1"></div>
+                <div class="grid-line-v line-v2"></div>
+                <div class="line-border-top"></div>
+                <div class="line-border-bottom"></div>
+                <div class="line-border-left"></div>
+                <div class="line-border-right"></div>
+              </div>
+              <div class="grid-number num-pos-top" id="rGridTop">3</div>
+              <div class="grid-number num-pos-left" id="rGridLeft">0</div>
+              <div class="grid-number num-pos-center" id="rGridCenter">5</div>
+              <div class="grid-number num-pos-right" id="rGridRight">7</div>
+              <div class="grid-number num-pos-bottom" id="rGridBottom">6</div>
+            </div>
+          </div>
+
+          <!-- คอลัมน์ 3: สองตัว + เบิ้ล -->
+          <div class="cal-right-column">
+            <div class="column-title-badge">สองตัวตรง</div>
+            <div class="grid-two-digits" id="rGridTwoDigits"></div>
+            <div class="double-row-sheet">
+              <div class="double-badge">เบิ้ล</div>
+              <div class="double-values" id="rDoubleWrapper"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM ROW: สามตัวตรง ✅ แก้ไขแล้ว -->
+        <div class="cal-bottom-row">
+          <div class="column-title-badge" style="margin-bottom: 8px">
+            สามตัวตรง
+          </div>
+          <div class="grid-three-digits" id="rGridThreeDigits"></div>
+        </div>
+
+        <!-- BRANDING -->
+        <div class="cb-footer">
+          <div class="cb-brand-pill">
+            <svg viewBox="0 0 1200 1227">
+              <path
+                d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.163 519.284ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.828Z"
+              />
+            </svg>
+            <div class="cb-brand">โจ๊กหมู @joakmuu</div>
+          </div>
+        </div>
+
+        <!-- BANNER: วัน 3 ภาษา -->
+        <div class="cal-day-banner" id="rDayBanner">
+          <div class="banner-thai" id="rBannerThai">วันศุกร์</div>
+          <div class="banner-chinese" id="rBannerChinese">星期五</div>
+          <div class="banner-eng" id="rBannerEng">FRIDAY</div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="cal-footer">
+          <div class="cal-footer-left">
+            <svg class="farming-icon" viewBox="0 0 64 64">
+              <path
+                d="M32 4C16.5 4 4 16.5 4 32s12.5 28 28 28 28-12.5 28-28S47.5 4 32 4zm0 6c12.1 0 22 9.9 22 22 0 3.8-1 7.3-2.7 10.4l-3.3-3.3c.7-2.1.7-4.4 0-6.5l3.8-3.8c.8-.8.8-2 0-2.8s-2-.8-2.8 0l-3.8 3.8c-2.1-.7-4.4-.7-6.5 0l-3.3-3.3c3.1-1.7 6.6-2.7 10.4-2.7 1.1 0 2-.9 2-2s-.9-2-2-2zm-12.4 8.7l3.3 3.3c-.7 2.1-.7 4.4 0 6.5l-3.8 3.8c-.8.8-.8 2 0 2.8.4.4.9.6 1.4.6s1-.2 1.4-.6l3.8-3.8c2.1.7 4.4.7 6.5 0l3.3 3.3c-3.1 1.7-6.6 2.7-10.4 2.7-3.8 0-7.3-1-10.4-2.7 1.1 0 2-.9 2-2 0-3.8 1-7.3 2.7-10.4z"
+              />
+            </svg>
+            <div class="cal-footer-lunar-label">農曆</div>
+          </div>
+          <div class="cal-footer-center" id="rChiLunarDate">
+            丙午年 四月小 二十日
+          </div>
+          <div class="cal-footer-right" id="rThaiSummary">
+            ปีมะเมีย เดือน 4 จีน<br />แรม ๕ ค่ำ เดือน ๗ ไทย
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         JAVASCRIPT LOGIC (ไม่มีการแก้ไข Logic เลย)
+         ========================================================= -->
+    <script>
+      const THAI_MONTHS = [
+        'มกราคม',
+        'กุมภาพันธ์',
+        'มีนาคม',
+        'เมษายน',
+        'พฤษภาคม',
+        'มิถุนายน',
+        'กรกฎาคม',
+        'สิงหาคม',
+        'กันยายน',
+        'ตุลาคม',
+        'พฤศจิกายน',
+        'ธันวาคม',
+      ]
+      const ENG_MONTHS = [
+        'JANUARY',
+        'FEBRUARY',
+        'MARCH',
+        'APRIL',
+        'MAY',
+        'JUNE',
+        'JULY',
+        'AUGUST',
+        'SEPTEMBER',
+        'OCTOBER',
+        'NOVEMBER',
+        'DECEMBER',
+      ]
+      const DAYS_TH = [
+        'วันอาทิตย์',
+        'วันจันทร์',
+        'วันอังคาร',
+        'วันพุธ',
+        'วันพฤหัสบดี',
+        'วันศุกร์',
+        'วันเสาร์',
+      ]
+      const DAYS_EN = [
+        'SUNDAY',
+        'MONDAY',
+        'TUESDAY',
+        'WEDNESDAY',
+        'THURSDAY',
+        'FRIDAY',
+        'SATURDAY',
+      ]
+      const DAYS_CH = [
+        '星期日',
+        '星期一',
+        '星期二',
+        '星期三',
+        '星期四',
+        '星期五',
+        '星期六',
+      ]
+      const ZODIACS_THAI = [
+        'มะเมีย',
+        'มะแม',
+        'วอก',
+        'ระกา',
+        'จอ',
+        'กุน',
+        'ชวด',
+        'ฉลู',
+        'ขาล',
+        'เถาะ',
+        'มะโรง',
+        'มะเส็ง',
+      ]
+      const CHI_YEARS = [
+        '丙午年',
+        '丁未年',
+        '戊申年',
+        '己酉年',
+        '庚戌年',
+        '辛亥年',
+        '壬子年',
+        '癸丑年',
+        '甲寅年',
+        '乙卯年',
+        '丙辰年',
+        '丁巳年',
+      ]
+      const CHI_NUMS = [
+        '',
+        '一',
+        '二',
+        '三',
+        '四',
+        '五',
+        '六',
+        '七',
+        '八',
+        '九',
+        '十',
+      ]
+
+      const PREMIUM_CAPTIONS = [
+        'เปิดดวงมหาเศรษฐีงวดนี้! แจกเลขเด็ดปฏิทินจีนโบราณ [NAME] คัดสรรเลขขลังเน้น ๆ ด้วยบารมีแห่งดวงดาว ขอให้รวยเงินล้าน สาธุ 🙏✨',
+        'มาตามนัดครับพี่น้อง! แนวทางปฏิทินปั๊มแดงเจ้าเดิม [NAME] งวดนี้เปิดตารางกากบาทมงคล ขออัญเชิญโชคลาภสถิตแก่ผู้แชร์โพสต์นี้ รวย ๆ เฮง ๆ ครับ 🔮💸',
+        'ของดีไม่ต้องพูดเยอะ! สลักเลขนำโชคปฏิทินโบราณ [NAME] ลุ้นรับโชคใหญ่ปลดหนี้สิน เงินไหลกองทองไหลมาเทมาอย่างไม่ขาดสาย สาธุ ๆ 🙏💰',
+        'ดวงฟ้าเปิด ทางสว่างมาแล้ว! แนวทางมงคลสุดแม่นยำ [NAME] งวดนี้ขอให้เป็นวันประวัติศาสตร์แห่งการรับทรัพย์กระเป๋าตุงกันถ้วนหน้า 🏮🎰',
+        'ใครรออยู่เซฟเก็บไว้ด่วน! แนวทางมงคลจากแผ่นปฏิทินฉีกโบราณ [NAME] โดยสำนักโจ๊กหมูพารวย ขอให้บารมีปฏิทินนำพาสู่ความมั่งคั่งมหาศาล 🐷✨',
+        'แจกฟรีสะพานบุญนำโชค! ปฏิทินจีนโบราณนำทางรวย [NAME] วันดีวันมงคล ขอให้หยิบจับสิ่งใดเป็นเงินเป็นทอง ทะลุเป้าทุกรางวัลถ้วนหน้า 🙏🥇',
+        'คัมภีร์เศรษฐีส่งตรงถึงหน้าจอ! แนวทางเลขมงคลปฏิทิน [NAME] ดวงใครกำลังเด่น ดวงใครกำลังมา ขอให้ใบนี้พลิกชีวิตเป็นเศรษฐีข้ามคืนด้วยเทอญ สาธุ 🏮💸',
+        'เลขเด่นท้ายกระดาษปฏิทินสุดขลัง [NAME] สำนักโจ๊กหมูจัดให้เน้น ๆ ขออวยพรให้ทุกท่านรับโชคก้อนโต สมปรารถนาทุกประการครับผม 🐷🎯',
+        'งวดนี้ขอให้เฮง งวดนี้ขอให้รวย! เปิดแนวทางโบราณตารางเลขเด็ด [NAME] ตามไว้ไม่เสียหาย วันนี้ขอให้ดวงเฮงส่องประกายมีแต่รอยยิ้มครับ 🌟🍀',
+        'ตราปั๊มแดงรับรองความเฮง! ปฏิทินจันทรคติไทย-จีนสุดพรีเมียม [NAME] ขอให้เป็นเลขพลิกชีวิต พลันความจนให้จางหาย มีแต่เงินล้านเข้ามาแทนที่ สาธุ 🙏💎',
+      ]
+
+      let currentBase64Image = null
+      let calculatedLunarInfo = null
+      let availableCaptions = [...PREMIUM_CAPTIONS]
+
+      function toThaiDigits(num) {
+        const thaiDigits = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙']
+        return num.toString().replace(/[0-9]/g, ch => thaiDigits[ch])
+      }
+
+      function formatChineseMonth(month) {
+        if (month === 1) return '正月'
+        if (month === 11) return '十一月'
+        if (month === 12) return '十二月'
+        return CHI_NUMS[month] + '月'
+      }
+
+      function formatChineseDay(day) {
+        if (day <= 10) return '初' + CHI_NUMS[day]
+        if (day < 20) return '十' + CHI_NUMS[day - 10]
+        if (day === 20) return '二十'
+        if (day < 30) return '廿' + CHI_NUMS[day - 20]
+        return '三十'
+      }
+
+      const LOTTERY_DATA = {
+        thai_gov: { name: 'รัฐบาลไทย', flag: 'th' },
+        lao_normal: { name: 'หวยลาว', flag: 'la' },
+        lao_dev: { name: 'ลาวพัฒนา', flag: 'la' },
+        lao_extra: { name: 'ลาว Extra', flag: 'la' },
+        lao_tv: { name: 'ลาว TV', flag: 'la' },
+        lao_hd: { name: 'ลาว HD', flag: 'la' },
+        lao_star: { name: 'ลาว Star', flag: 'la' },
+        lao_samakkhi: { name: 'ลาวสามัคคี', flag: 'la' },
+        lao_asean: { name: 'ลาวอาเซียน', flag: 'la' },
+        lao_vip: { name: 'ลาว VIP', flag: 'la' },
+        lao_samakkhi_vip: { name: 'ลาวสามัคคี VIP', flag: 'la' },
+        lao_star_vip: { name: 'ลาว Star VIP', flag: 'la' },
+        lao_redcross: { name: 'ลาวกาชาด', flag: 'la' },
+        hanoi_normal: { name: 'ฮานอยปกติ', flag: 'vn' },
+        hanoi_special: { name: 'ฮานอยพิเศษ', flag: 'vn' },
+        hanoi_vip: { name: 'ฮานอย VIP', flag: 'vn' },
+        hanoi_extra: { name: 'ฮานอย EXTRA', flag: 'vn' },
+        hanoi_star: { name: 'ฮานอย Star', flag: 'vn' },
+        hanoi_asean: { name: 'ฮานอยอาเซียน', flag: 'vn' },
+        hanoi_hd: { name: 'ฮานอย HD', flag: 'vn' },
+        hanoi_tv: { name: 'ฮานอย TV', flag: 'vn' },
+        hanoi_redcross: { name: 'ฮานอยกาชาด', flag: 'vn' },
+        hanoi_samakkhi: { name: 'ฮานอยสามัคคี', flag: 'vn' },
+        hanoi_dev: { name: 'ฮานอยพัฒนา', flag: 'vn' },
+        hanoi_late: { name: 'ฮานอยรอบดึก', flag: 'vn' },
+        malay_normal: { name: 'หวยมาเลย์', flag: 'my' },
+        malay_vip: { name: 'มาเลย์ VIP', flag: 'my' },
+        malay_star: { name: 'มาเลย์ Star', flag: 'my' },
+        stock_thai: { name: 'หุ้นไทย (ปกติ)', flag: 'th' },
+        stock_thai_evening: { name: 'หุ้นไทยเย็น', flag: 'th' },
+        stock_ch9: { name: 'หุ้นช่อง 9', flag: 'th' },
+        stock_nikkei_m: { name: 'นิเคอิ (เช้า)', flag: 'jp' },
+        stock_nikkei_a: { name: 'นิเคอิ (บ่าย)', flag: 'jp' },
+        stock_china_m: { name: 'หุ้นจีน (เช้า)', flag: 'cn' },
+        stock_china_a: { name: 'หุ้นจีน (บ่าย)', flag: 'cn' },
+        stock_hsi_m: { name: 'ฮั่งเส็ง (เช้า)', flag: 'hk' },
+        stock_hsi_a: { name: 'ฮั่งเส็ง (บ่าย)', flag: 'hk' },
+        stock_taiwan: { name: 'หุ้นไต้หวัน', flag: 'tw' },
+        stock_korea: { name: 'หุ้นเกาหลี', flag: 'kr' },
+        stock_sg: { name: 'หุ้นสิงคโปร์', flag: 'sg' },
+        stock_india: { name: 'หุ้นอินเดีย', flag: 'in' },
+        stock_egypt: { name: 'หุ้นอียิปต์', flag: 'eg' },
+        stock_russia: { name: 'หุ้นรัสเซีย', flag: 'ru' },
+        stock_ftse: { name: 'หุ้นอังกฤษ', flag: 'gb' },
+        stock_dax: { name: 'หุ้นเยอรมัน', flag: 'de' },
+        stock_dow: { name: 'ดาวโจนส์ ปกติ', flag: 'us' },
+        stock_euro: { name: 'หุ้นยูโร', flag: 'eu' },
+        yeekee_normal: { name: 'ยี่กีธรรมดา', flag: 'th' },
+        yeekee_vip: { name: 'ยี่กี VIP', flag: 'th' },
+        yeekee_star: { name: 'ยี่กี Star', flag: 'th' },
+      }
+
+      function getFlagUrl(code) {
+        return `https://flagcdn.com/w320/${code}.png`
+      }
+
+      function awaitImageLoad(imgElem) {
+        return new Promise(resolve => {
+          if (imgElem.complete) return resolve()
+          imgElem.onload = resolve
+          imgElem.onerror = resolve
+        })
+      }
+
+      function calculateLunarDate(targetDate) {
+        const refDate = new Date(2026, 5, 5)
+        const diffTime = targetDate.getTime() - refDate.getTime()
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+        const synodic = 29.53059
+
+        let lunarCycleDay = (20 + diffDays) % synodic
+        if (lunarCycleDay < 0) lunarCycleDay += synodic
+
+        let phase = '',
+          count = 0
+        if (lunarCycleDay < 14.765) {
+          phase = 'ขึ้น'
+          count = Math.floor(lunarCycleDay) + 1
+        } else {
+          phase = 'แรม'
+          count = Math.floor(lunarCycleDay - 14.765) + 1
+          if (count > 15) count = 15
+          if (count <= 0) count = 1
+        }
+
+        const monthsDiff = diffDays / synodic
+        let rawMonth = 7 + monthsDiff
+        let lunarMonth = Math.round(rawMonth) % 12
+        if (lunarMonth <= 0) lunarMonth += 12
+
+        const yearBE = targetDate.getFullYear() + 543
+        const zodiacIndex = (yearBE - 2569 + 12000) % 12
+        const zodiac = ZODIACS_THAI[zodiacIndex]
+
+        let chiDayRaw = (20 + diffDays) % 29.53
+        if (chiDayRaw < 0) chiDayRaw += 29.53
+        let chiDay = Math.floor(chiDayRaw) + 1
+        if (chiDay > 30) chiDay = 30
+
+        let chiMonthRaw = 4 + monthsDiff
+        let chiMonth = Math.round(chiMonthRaw) % 12
+        if (chiMonth <= 0) chiMonth += 12
+
+        const chiYearName = CHI_YEARS[zodiacIndex]
+        let chiMonthStr = formatChineseMonth(chiMonth)
+        let chiDayStr = formatChineseDay(chiDay)
+
+        return {
+          day: targetDate.getDate(),
+          monthNameTH: THAI_MONTHS[targetDate.getMonth()],
+          yearBE,
+          dayOfWeekIndex: targetDate.getDay(),
+          thaiPhase: phase,
+          thaiCount: count,
+          thaiMonth: lunarMonth,
+          thaiZodiac: zodiac,
+          chiYearName,
+          chiMonthStr,
+          chiDayStr,
+          chiMonthNum: chiMonth,
+          chiDayNum: chiDay,
+        }
+      }
+
+      function updateSkin() {
+        const skin = document.getElementById('paperSkin').value
+        if (skin === 'cream') {
+          document.documentElement.style.setProperty('--paper-color', '#f7f3e9')
+          document.documentElement.style.setProperty('--paper-ink', '#111827')
+          document.documentElement.style.setProperty('--paper-red', '#c22121')
+          document.documentElement.style.setProperty(
+            '--paper-border',
+            'rgba(194, 33, 33, 0.25)'
+          )
+        } else if (skin === 'red') {
+          document.documentElement.style.setProperty('--paper-color', '#991b1b')
+          document.documentElement.style.setProperty('--paper-ink', '#fef08a')
+          document.documentElement.style.setProperty('--paper-red', '#ffffff')
+          document.documentElement.style.setProperty(
+            '--paper-border',
+            'rgba(255, 255, 255, 0.35)'
+          )
+        } else if (skin === 'white') {
+          document.documentElement.style.setProperty('--paper-color', '#ffffff')
+          document.documentElement.style.setProperty('--paper-ink', '#000000')
+          document.documentElement.style.setProperty('--paper-red', '#e11d48')
+          document.documentElement.style.setProperty(
+            '--paper-border',
+            'rgba(225, 29, 72, 0.25)'
+          )
+        }
+      }
+
+      function updateLotteryTitle() {
+        const selectElem = document.getElementById('lotteryType')
+        const data = LOTTERY_DATA[selectElem.value] || {
+          name: 'แนวทาง',
+          flag: 'th',
+        }
+        document.getElementById('rLotteryTypeName').innerText =
+          'แนวทาง' + data.name
+        const flagReal = document.getElementById('rFlagReal')
+        const flagBg = document.getElementById('rFlagBg')
+        flagReal.src = getFlagUrl(data.flag)
+        flagBg.src = getFlagUrl(data.flag)
+        randomizeAllNumbers()
+      }
+
+      function updateStarsPreview() {
+        document.getElementById('previewStars').innerText =
+          document.getElementById('starsRating').value
+      }
+
+      function randomizeAllNumbers() {
+        const secureRandom = (min, max) => {
+          const arr = new Uint32Array(1)
+          window.crypto.getRandomValues(arr)
+          return Math.floor((arr[0] / (0xffffffff + 1)) * (max - min + 1)) + min
+        }
+
+        const getUniqueSets = (count, digits, forced = []) => {
+          const set = new Set(forced.map(n => String(n).padStart(digits, '0')))
+          const max = Math.pow(10, digits) - 1
+          const limit = Math.min(count, max + 1)
+          let limitTries = 0
+          while (set.size < limit && limitTries++ < 9999) {
+            set.add(String(secureRandom(0, max)).padStart(digits, '0'))
+          }
+          return [...set]
+        }
+
+        let den1 = secureRandom(1, 9)
+        let den2
+        do {
+          den2 = secureRandom(1, 9)
+        } while (den1 === den2)
+
+        const runStr = `${den1} - ${den2}`
+        const db1 = `${den1}${den1}`
+        const db2 = `${den2}${den2}`
+
+        const forcedTwo = [
+          `${den1}${den2}`,
+          `${den2}${den1}`,
+          `${den1}${secureRandom(0, 9)}`,
+          `${secureRandom(0, 9)}${den2}`,
+        ]
+        const twoDigits = getUniqueSets(8, 2, forcedTwo)
+
+        const rVal = () => secureRandom(0, 9)
+        const forcedThree = [
+          `${den1}${den2}${rVal()}`,
+          `${rVal()}${den1}${den2}`,
+          `${den2}${rVal()}${den1}`,
+          `${den1}${rVal()}${den2}`,
+        ]
+        const threeDigits = getUniqueSets(8, 3, forcedThree)
+
+        let pool = [den1, den2]
+        for (let i = 1; i <= 8; i++) {
+          const val = twoDigits[i - 1] || ''
+          if (val.length === 2) {
+            pool.push(val[0], val[1])
+          }
+        }
+        let uniqueDigits = [...new Set(pool)].filter(x => x >= '0' && x <= '9')
+        const fallback = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+        for (let f of fallback) {
+          if (uniqueDigits.length >= 5) break
+          if (!uniqueDigits.includes(f)) uniqueDigits.push(f)
+        }
+
+        document.getElementById('numDen1').value = den1
+        document.getElementById('numDen2').value = den2
+        document.getElementById('numRun').value = runStr
+        document.getElementById('gridTop').value = uniqueDigits[0]
+        document.getElementById('gridLeft').value = uniqueDigits[1]
+        document.getElementById('gridCenter').value = uniqueDigits[2]
+        document.getElementById('gridRight').value = uniqueDigits[3]
+        document.getElementById('gridBottom').value = uniqueDigits[4]
+        document.getElementById('double1').value = db1
+        document.getElementById('double2').value = db2
+
+        for (let i = 1; i <= 8; i++) {
+          document.getElementById(`two${i}`).value = twoDigits[i - 1]
+          document.getElementById(`three${i}`).value = threeDigits[i - 1]
+        }
+
+        syncInputsToCanvas()
+      }
+
+      function syncInputsToCanvas() {
+        const d1 = document.getElementById('numDen1').value || '0'
+        const d2 = document.getElementById('numDen2').value || '0'
+
+        document.getElementById('rDen1').innerText = d1
+        document.getElementById('rDen2').innerText = d2
+        document.getElementById('rRun').innerText =
+          document.getElementById('numRun').value || `${d1} - ${d2}`
+        document.getElementById('rGridTop').innerText =
+          document.getElementById('gridTop').value || '0'
+        document.getElementById('rGridLeft').innerText =
+          document.getElementById('gridLeft').value || '0'
+        document.getElementById('rGridCenter').innerText =
+          document.getElementById('gridCenter').value || '0'
+        document.getElementById('rGridRight').innerText =
+          document.getElementById('gridRight').value || '0'
+        document.getElementById('rGridBottom').innerText =
+          document.getElementById('gridBottom').value || '0'
+
+        let twoHtml = ''
+        for (let i = 1; i <= 8; i++) {
+          twoHtml += `<div class="two-digit-item">${document.getElementById(`two${i}`).value || '00'}</div>`
+        }
+        document.getElementById('rGridTwoDigits').innerHTML = twoHtml
+
+        document.getElementById('rDoubleWrapper').innerHTML =
+          `<span>${document.getElementById('double1').value || '00'}</span> <span>${document.getElementById('double2').value || '11'}</span>`
+
+        let threeHtml = ''
+        for (let i = 1; i <= 8; i++) {
+          threeHtml += `<div class="three-digit-item">${document.getElementById(`three${i}`).value || '000'}</div>`
+        }
+        document.getElementById('rGridThreeDigits').innerHTML = threeHtml
+      }
+
+      function calculateDatesAndRender() {
+        const dateVal = document.getElementById('dateInput').value
+        if (!dateVal) return
+
+        const targetDate = new Date(dateVal)
+        const info = calculateLunarDate(targetDate)
+        calculatedLunarInfo = info
+
+        const thaiLunarCount = toThaiDigits(info.thaiCount)
+        const thaiLunarMonth = toThaiDigits(info.thaiMonth)
+
+        document.getElementById('rThaiMonthYear').innerText =
+          `${info.day} ${info.monthNameTH} ${info.yearBE}`
+        document.getElementById('rThaiLunarHeader').innerText =
+          `${info.thaiPhase} ${thaiLunarCount} ค่ำ เดือน ${thaiLunarMonth} ปี${info.thaiZodiac}`
+        document.getElementById('rEngMonthYear').innerText =
+          `${ENG_MONTHS[targetDate.getMonth()]} ${targetDate.getFullYear()}`
+
+        const chiDayText =
+          info.day <= 10
+            ? CHI_NUMS[info.day]
+            : info.day < 20
+              ? '十' + CHI_NUMS[info.day - 10]
+              : info.day === 20
+                ? '二十'
+                : info.day < 30
+                  ? '二十' + CHI_NUMS[info.day - 20]
+                  : '三十' + CHI_NUMS[info.day - 30]
+
+        document.getElementById('rChiSolarLabel').innerText =
+          `陽曆${CHI_NUMS[targetDate.getMonth() + 1]}月${chiDayText}日`
+
+        document.getElementById('rBannerThai').innerText =
+          DAYS_TH[info.dayOfWeekIndex]
+        document.getElementById('rBannerChinese').innerText =
+          DAYS_CH[info.dayOfWeekIndex]
+        document.getElementById('rBannerEng').innerText =
+          DAYS_EN[info.dayOfWeekIndex]
+
+        const sizeLabel = info.chiDayNum > 29 ? '大' : '小'
+        document.getElementById('rChiLunarDate').innerText =
+          `${info.chiYearName} ${info.chiMonthStr}${sizeLabel} ${info.chiDayStr}`
+        document.getElementById('rThaiSummary').innerHTML =
+          `ปี${info.thaiZodiac} เดือน ${info.chiMonthNum} จีน<br/>${info.thaiPhase} ${thaiLunarCount} ค่ำ เดือน ${thaiLunarMonth} ไทย`
+      }
+
+      async function generatePremiumImage() {
+        document.getElementById('placeholder').style.display = 'none'
+        document.getElementById('previewImg').style.display = 'none'
+        document.getElementById('actionBar').style.display = 'none'
+        document.getElementById('loader').style.display = 'flex'
+
+        calculateDatesAndRender()
+        syncInputsToCanvas()
+        updateStarsPreview()
+
+        const flagReal = document.getElementById('rFlagReal')
+        const flagBg = document.getElementById('rFlagBg')
+
+        try {
+          await document.fonts.ready
+          await Promise.all([awaitImageLoad(flagReal), awaitImageLoad(flagBg)])
+          await new Promise(resolve => setTimeout(resolve, 800))
+
+          const renderZone = document.getElementById('renderZone')
+          const canvas = await html2canvas(renderZone, {
+            scale: 1.25,
+            useCORS: true,
+            backgroundColor: null,
+            logging: false,
+          })
+
+          currentBase64Image = canvas.toDataURL('image/jpeg', 0.95)
+          const previewImg = document.getElementById('previewImg')
+          previewImg.src = currentBase64Image
+
+          document.getElementById('loader').style.display = 'none'
+          previewImg.style.display = 'block'
+          document.getElementById('actionBar').style.display = 'grid'
+        } catch (error) {
+          console.error('Render Error:', error)
+          alert('เกิดข้อผิดพลาดในการจำลองปฏิทิน กรุณาลองใหม่อีกครั้งครับผม 🐷')
+          document.getElementById('loader').style.display = 'none'
+          document.getElementById('placeholder').style.display = 'block'
+        }
+      }
+
+      function saveImage() {
+        if (!currentBase64Image) return
+        const data = LOTTERY_DATA[
+          document.getElementById('lotteryType').value
+        ] || { name: 'lotto' }
+        const dateVal = document.getElementById('dateInput').value || 'date'
+        const link = document.createElement('a')
+        link.download = `joakmu-calendar-${data.name.replace(/\s+/g, '')}-${dateVal}.jpg`
+        link.href = currentBase64Image
+        link.click()
+      }
+
+      async function shareImage() {
+        if (!currentBase64Image) return
+        try {
+          const res = await fetch(currentBase64Image)
+          const blob = await res.blob()
+          const file = new File([blob], 'joakmu-calendar.jpg', {
+            type: 'image/jpeg',
+          })
+          await navigator.share({
+            title: 'แนวทางปฏิทินฉีกโบราณ สำนักโจ๊กหมู',
+            files: [file],
+          })
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            alert(
+              'เบราว์เซอร์นี้ไม่รองรับการแชร์ไฟล์ภาพโดยตรง แนะนำให้กดบันทึกรูปลงเครื่องแล้วโพสต์ด้วยตนเองนะครับ 🐷'
+            )
+          }
+        }
+      }
+
+      function copyCaption() {
+        if (!calculatedLunarInfo) {
+          alert(
+            'กรุณากดปุ่ม "🔮 อัปเดตข้อมูล & สลักภาพโบราณ" เพื่อเปิดใช้งานระบบคัดลอกแคปชั่นอย่างเป็นทางการ'
+          )
+          return
+        }
+        const data = LOTTERY_DATA[
+          document.getElementById('lotteryType').value
+        ] || { name: 'แนวทาง' }
+        const typeVal = 'แนวทาง' + data.name
+        const thaiDateStr = `${calculatedLunarInfo.day} ${calculatedLunarInfo.monthNameTH} ${calculatedLunarInfo.yearBE}`
+
+        if (availableCaptions.length === 0)
+          availableCaptions = [...PREMIUM_CAPTIONS]
+        const randomIndex = Math.floor(Math.random() * availableCaptions.length)
+        const selectedCaption = availableCaptions.splice(randomIndex, 1)[0]
+        const finalCaption = selectedCaption.replace(/\[NAME\]/g, typeVal)
+        const hashtagName = typeVal.replace(/\s+/g, '')
+
+        const formattedText = `🐷 ปฏิทินฉีกจีนนำโชค สำนักโจ๊กหมู 🐷\n🗓 งวดประจำวันที่: ${thaiDateStr}\n🎯 แนวทาง: ${typeVal}\n\n${finalCaption}\n\n#โจ๊กหมู #ปฏิทินจีนนำโชค #เลขเด่นปฏิทินโบราณ #แนวทางหวย #${hashtagName}`
+
+        try {
+          const textElement = document.createElement('textarea')
+          textElement.value = formattedText
+          document.body.appendChild(textElement)
+          textElement.select()
+          document.execCommand('copy')
+          document.body.removeChild(textElement)
+          alert(
+            '📋 คัดลอกแคปชั่นพร้อมแท็กเฉพาะ เรียบร้อยแล้วค๊าบ! โพสต์พร้อมภาพในเพจได้เลยครับพี่!'
+          )
+        } catch (err) {
+          alert('ไม่สามารถคัดลอกได้โดยอัตโนมัติ กรุณาลองใหม่อีกครั้ง')
+        }
+      }
+
+      window.onload = function () {
+        const d = new Date()
+        const yyyy = d.getFullYear()
+        const mm = String(d.getMonth() + 1).padStart(2, '0')
+        const dd = String(d.getDate()).padStart(2, '0')
+        document.getElementById('dateInput').value = `${yyyy}-${mm}-${dd}`
+
+        updateSkin()
+        updateLotteryTitle()
+        calculateDatesAndRender()
+
+        if (
+          navigator.canShare &&
+          navigator.canShare({
+            files: [new File([], 't.jpg', { type: 'image/jpeg' })],
+          })
+        ) {
+          document.getElementById('shareBtn').style.display = 'inline-flex'
+        } else {
+          document.getElementById('shareBtn').style.display = 'none'
+        }
+      }
+    </script>
+  </body>
+</html>

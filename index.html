@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>โจ๊กหมู - ระบบสร้างภาพปฏิทินนำโชคย้อนยุค V3 Complete</title>
+    <title>โจ๊กหมู - ระบบสร้างภาพปฏิทินนำโชคย้อนยุค V4</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Charm:wght@400;700&display=swap"
       rel="stylesheet"
@@ -43,7 +43,7 @@
         overflow-x: hidden;
       }
 
-      /* ===== DESKTOP: sidebar + main side-by-side ===== */
+      /* ===== LAYOUT ===== */
       .dashboard {
         display: flex;
         height: 100vh;
@@ -72,7 +72,7 @@
         position: relative;
       }
 
-      /* ===== MOBILE: stack vertically ===== */
+      /* ===== MOBILE ===== */
       @media (max-width: 768px) {
         .dashboard {
           flex-direction: column;
@@ -83,7 +83,6 @@
           width: 100%;
           border-right: none;
           border-bottom: 1px solid var(--border);
-          /* collapsible panel — toggled by JS */
           max-height: none;
           overflow-y: visible;
         }
@@ -109,7 +108,6 @@
         }
       }
 
-      /* mobile toggle button — hidden on desktop */
       .mobile-toggle-btn {
         display: none;
         width: 100%;
@@ -132,7 +130,7 @@
         }
       }
 
-      /* ===== SIDEBAR CONTROLS ===== */
+      /* ===== SIDEBAR ===== */
       .app-brand {
         display: flex;
         align-items: center;
@@ -231,6 +229,11 @@
         border: 1px solid var(--border);
         border-radius: 6px;
         color: #ffffff;
+        font-family: 'Kanit', sans-serif;
+        outline: none;
+      }
+      .number-sub-box input:focus {
+        border-color: #ef4444;
       }
 
       .btn-generate {
@@ -256,6 +259,11 @@
         transform: translateY(-1px);
         box-shadow: 0 6px 15px rgba(239, 68, 68, 0.35);
       }
+      .btn-generate:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
 
       .btn-randomize {
         background: #1e293b;
@@ -279,7 +287,34 @@
         color: #ffffff;
       }
 
-      /* ===== PREVIEW AREA ===== */
+      /* ===== TOAST ===== */
+      #toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: #1f2937;
+        border: 1px solid #374151;
+        color: #f3f4f6;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-family: 'Kanit', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        z-index: 9999;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        transition:
+          transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+          opacity 0.35s;
+        opacity: 0;
+        pointer-events: none;
+      }
+      #toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* ===== PREVIEW ===== */
       .preview-wrapper {
         width: 100%;
         max-width: 520px;
@@ -318,7 +353,7 @@
         margin-bottom: 8px;
       }
 
-      /* ===== ACTION BUTTONS ===== */
+      /* ===== ACTION BAR ===== */
       .action-bar {
         display: none;
         grid-template-columns: repeat(3, 1fr);
@@ -358,7 +393,7 @@
         border-color: #d97706;
       }
 
-      /* ===== LOADING ===== */
+      /* ===== LOADER ===== */
       .loader-overlay {
         position: absolute;
         inset: 0;
@@ -386,7 +421,7 @@
         }
       }
 
-      /* ===== CANVAS RENDER (1080x1080, hidden) ===== */
+      /* ===== CANVAS BOARD (1080×1080 hidden) ===== */
       .render-container {
         position: fixed;
         top: 0;
@@ -399,6 +434,7 @@
         background: #1e1e1e;
       }
 
+      /* ===== CALENDAR SHEET ===== */
       .calendar-sheet {
         width: 1080px;
         height: 1080px;
@@ -922,11 +958,11 @@
       }
       .cal-footer-right {
         text-align: right;
-        font-size: 16px;
+        font-size: 22px;
         font-weight: 700;
         color: var(--paper-ink);
         opacity: 0.75;
-        line-height: 1.2;
+        line-height: 1.4;
       }
       .stamp-seal {
         position: absolute;
@@ -953,37 +989,31 @@
         font-weight: 700;
         line-height: 1.1;
       }
-      .auspicious-stars-badge {
+
+      /* ===== FLAG FALLBACK ===== */
+      .flag-fallback-circle {
         position: absolute;
-        top: 170px;
-        right: 480px;
+        top: 65px;
+        left: 38px;
+        width: 105px;
+        height: 70px;
+        border-radius: 8px;
+        border: 2px solid var(--paper-red);
+        z-index: 5;
+        background: #e5e7eb;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        transform: rotate(5deg);
-        border: 2px dashed var(--paper-red);
-        padding: 4px 10px;
-        border-radius: 6px;
-        z-index: 4;
-      }
-      .auspicious-title {
-        font-size: 12px;
-        font-weight: 800;
-        color: var(--paper-red);
-        margin-bottom: 2px;
-      }
-      .auspicious-stars {
-        color: var(--paper-red);
-        font-size: 14px;
-        letter-spacing: 2px;
+        justify-content: center;
+        font-size: 36px;
       }
     </style>
   </head>
   <body>
+    <div id="toast"></div>
+
     <div class="dashboard">
       <!-- SIDEBAR -->
       <div class="sidebar" id="sidebar">
-        <!-- Mobile header: always visible -->
         <div class="app-brand">
           <svg viewBox="0 0 512 512">
             <path
@@ -993,10 +1023,9 @@
           สำนักโจ๊กหมูพารวย
         </div>
         <div class="app-desc">
-          สลับเลขสุ่มดั้งเดิม V3 เข้าสู่แผ่นปฏิทินจีนโบราณที่น่าเชื่อถือขั้นสุด
+          สลับเลขสุ่มดั้งเดิม V4 เข้าสู่แผ่นปฏิทินจีนโบราณที่น่าเชื่อถือขั้นสุด
         </div>
 
-        <!-- Collapse toggle (mobile only) -->
         <button
           class="mobile-toggle-btn"
           id="toggleBtn"
@@ -1006,7 +1035,6 @@
           <span id="toggleIcon">▲ ซ่อน</span>
         </button>
 
-        <!-- Everything below here collapses on mobile -->
         <div class="sidebar-collapsible" id="sidebarContent">
           <div class="control-group">
             <label>สกินของกระดาษปฏิทิน</label>
@@ -1097,19 +1125,6 @@
               class="form-control"
               onchange="calculateDatesAndRender()"
             />
-          </div>
-
-          <div class="control-group">
-            <label>ระดับมงคล / ความมั่นใจงวดนี้</label>
-            <select
-              id="starsRating"
-              class="form-control"
-              onchange="updateStarsPreview()"
-            >
-              <option value="⭐⭐⭐⭐⭐">5 ดาวมหาเฮง (ดีเลิศ)</option>
-              <option value="⭐⭐⭐⭐">4 ดาวมหาลาภ (ดีมาก)</option>
-              <option value="⭐⭐⭐">3 ดาวนำโชค (ปานกลาง)</option>
-            </select>
           </div>
 
           <div class="control-group">
@@ -1398,11 +1413,14 @@
             </div>
           </div>
 
-          <button class="btn-generate" onclick="generatePremiumImage()">
+          <button
+            class="btn-generate"
+            id="btnGenerate"
+            onclick="generatePremiumImage()"
+          >
             🔮 อัปเดตข้อมูล & สลักภาพโบราณ
           </button>
         </div>
-        <!-- /sidebar-collapsible -->
       </div>
       <!-- /sidebar -->
 
@@ -1454,7 +1472,7 @@
       </div>
     </div>
 
-    <!-- HIDDEN CANVAS BOARD (1080x1080) -->
+    <!-- HIDDEN CANVAS BOARD (1080×1080) -->
     <div id="renderZone" class="render-container">
       <div class="calendar-sheet" id="calendarSheet">
         <div class="calendar-tear-off">
@@ -1477,13 +1495,17 @@
           alt="flag-real"
           crossorigin="anonymous"
         />
+        <div
+          id="rFlagFallback"
+          class="flag-fallback-circle"
+          style="display: none"
+        >
+          🏳
+        </div>
         <div class="cal-border-outer"></div>
         <div class="cal-border-inner"></div>
         <div class="stamp-seal"></div>
-        <div class="auspicious-stars-badge">
-          <div class="auspicious-title">ระดับมงคลวันนี้</div>
-          <div class="auspicious-stars" id="previewStars">⭐⭐⭐⭐⭐</div>
-        </div>
+
         <div class="cal-header">
           <div class="cal-header-left">
             <div class="cal-lottery-type" id="rLotteryTypeName">
@@ -1584,16 +1606,50 @@
     </div>
 
     <script>
-      // ===== Mobile collapse toggle =====
+      // ====================================================
+      //  UTILITY: TOAST (replaces all alert() calls)
+      // ====================================================
+      let toastTimer = null
+      function showToast(msg, durationMs = 2800) {
+        const t = document.getElementById('toast')
+        t.textContent = msg
+        t.classList.add('show')
+        if (toastTimer) clearTimeout(toastTimer)
+        toastTimer = setTimeout(() => t.classList.remove('show'), durationMs)
+      }
+
+      // ====================================================
+      //  UTILITY: CLIPBOARD  (replaces deprecated execCommand)
+      // ====================================================
+      async function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text)
+        } else {
+          // Fallback for non-secure context / old browsers
+          const ta = document.createElement('textarea')
+          ta.value = text
+          ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0'
+          document.body.appendChild(ta)
+          ta.focus()
+          ta.select()
+          document.execCommand('copy')
+          document.body.removeChild(ta)
+        }
+      }
+
+      // ====================================================
+      //  MOBILE COLLAPSE
+      // ====================================================
       let sidebarOpen = true
       function toggleSidebar() {
         sidebarOpen = !sidebarOpen
-        const content = document.getElementById('sidebarContent')
-        const icon = document.getElementById('toggleIcon')
-        content.style.display = sidebarOpen ? '' : 'none'
-        icon.textContent = sidebarOpen ? '▲ ซ่อน' : '▼ แสดง'
+        document.getElementById('sidebarContent').style.display = sidebarOpen
+          ? ''
+          : 'none'
+        document.getElementById('toggleIcon').textContent = sidebarOpen
+          ? '▲ ซ่อน'
+          : '▼ แสดง'
       }
-      // On mobile, start collapsed so preview shows first
       function initMobileCollapse() {
         if (window.innerWidth <= 768) {
           sidebarOpen = false
@@ -1602,7 +1658,9 @@
         }
       }
 
-      // ===== Original app logic (unchanged) =====
+      // ====================================================
+      //  DATE & LUNAR CONSTANTS
+      // ====================================================
       const THAI_MONTHS = [
         'มกราคม',
         'กุมภาพันธ์',
@@ -1699,6 +1757,7 @@
         '九',
         '十',
       ]
+
       const PREMIUM_CAPTIONS = [
         'เปิดดวงมหาเศรษฐีงวดนี้! แจกเลขเด็ดปฏิทินจีนโบราณ [NAME] คัดสรรเลขขลังเน้น ๆ ด้วยบารมีแห่งดวงดาว ขอให้รวยเงินล้าน สาธุ 🙏✨',
         'มาตามนัดครับพี่น้อง! แนวทางปฏิทินปั๊มแดงเจ้าเดิม [NAME] งวดนี้เปิดตารางกากบาทมงคล ขออัญเชิญโชคลาภสถิตแก่ผู้แชร์โพสต์นี้ รวย ๆ เฮง ๆ ครับ 🔮💸',
@@ -1707,10 +1766,13 @@
         'ใครรออยู่เซฟเก็บไว้ด่วน! แนวทางมงคลจากแผ่นปฏิทินฉีกโบราณ [NAME] โดยสำนักโจ๊กหมูพารวย ขอให้บารมีปฏิทินนำพาสู่ความมั่งคั่งมหาศาล 🐷✨',
       ]
 
-      let currentBase64Image = null,
-        calculatedLunarInfo = null
+      let currentBase64Image = null
+      let calculatedLunarInfo = null
       let availableCaptions = [...PREMIUM_CAPTIONS]
 
+      // ====================================================
+      //  HELPERS
+      // ====================================================
       function toThaiDigits(num) {
         const t = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙']
         return num.toString().replace(/[0-9]/g, ch => t[ch])
@@ -1729,101 +1791,148 @@
         return '三十'
       }
 
+      // ====================================================
+      //  LOTTERY DATA
+      // ====================================================
       const LOTTERY_DATA = {
-        thai_gov: { name: 'รัฐบาลไทย', flag: 'th' },
-        lao_normal: { name: 'หวยลาว', flag: 'la' },
-        lao_dev: { name: 'ลาวพัฒนา', flag: 'la' },
-        lao_extra: { name: 'ลาว Extra', flag: 'la' },
-        lao_tv: { name: 'ลาว TV', flag: 'la' },
-        lao_hd: { name: 'ลาว HD', flag: 'la' },
-        lao_star: { name: 'ลาว Star', flag: 'la' },
-        lao_samakkhi: { name: 'ลาวสามัคคี', flag: 'la' },
-        lao_asean: { name: 'ลาวอาเซียน', flag: 'la' },
-        lao_vip: { name: 'ลาว VIP', flag: 'la' },
-        lao_samakkhi_vip: { name: 'ลาวสามัคคี VIP', flag: 'la' },
-        lao_star_vip: { name: 'ลาว Star VIP', flag: 'la' },
-        lao_redcross: { name: 'ลาวกาชาด', flag: 'la' },
-        hanoi_normal: { name: 'ฮานอยปกติ', flag: 'vn' },
-        hanoi_special: { name: 'ฮานอยพิเศษ', flag: 'vn' },
-        hanoi_vip: { name: 'ฮานอย VIP', flag: 'vn' },
-        hanoi_extra: { name: 'ฮานอย EXTRA', flag: 'vn' },
-        hanoi_star: { name: 'ฮานอย Star', flag: 'vn' },
-        hanoi_asean: { name: 'ฮานอยอาเซียน', flag: 'vn' },
-        hanoi_hd: { name: 'ฮานอย HD', flag: 'vn' },
-        hanoi_tv: { name: 'ฮานอย TV', flag: 'vn' },
-        hanoi_redcross: { name: 'ฮานอยกาชาด', flag: 'vn' },
-        hanoi_samakkhi: { name: 'ฮานอยสามัคคี', flag: 'vn' },
-        hanoi_dev: { name: 'ฮานอยพัฒนา', flag: 'vn' },
-        hanoi_late: { name: 'ฮานอยรอบดึก', flag: 'vn' },
-        malay_normal: { name: 'หวยมาเลย์', flag: 'my' },
-        malay_vip: { name: 'มาเลย์ VIP', flag: 'my' },
-        malay_star: { name: 'มาเลย์ Star', flag: 'my' },
-        stock_thai: { name: 'หุ้นไทย (ปกติ)', flag: 'th' },
-        stock_thai_evening: { name: 'หุ้นไทยเย็น', flag: 'th' },
-        stock_ch9: { name: 'หุ้นช่อง 9', flag: 'th' },
-        stock_nikkei_m: { name: 'นิเคอิ (เช้า)', flag: 'jp' },
-        stock_nikkei_a: { name: 'นิเคอิ (บ่าย)', flag: 'jp' },
-        stock_china_m: { name: 'หุ้นจีน (เช้า)', flag: 'cn' },
-        stock_china_a: { name: 'หุ้นจีน (บ่าย)', flag: 'cn' },
-        stock_hsi_m: { name: 'ฮั่งเส็ง (เช้า)', flag: 'hk' },
-        stock_hsi_a: { name: 'ฮั่งเส็ง (บ่าย)', flag: 'hk' },
-        stock_taiwan: { name: 'หุ้นไต้หวัน', flag: 'tw' },
-        stock_korea: { name: 'หุ้นเกาหลี', flag: 'kr' },
-        stock_sg: { name: 'หุ้นสิงคโปร์', flag: 'sg' },
-        stock_india: { name: 'หุ้นอินเดีย', flag: 'in' },
-        stock_egypt: { name: 'หุ้นอียิปต์', flag: 'eg' },
-        stock_russia: { name: 'หุ้นรัสเซีย', flag: 'ru' },
-        stock_ftse: { name: 'หุ้นอังกฤษ', flag: 'gb' },
-        stock_dax: { name: 'หุ้นเยอรมัน', flag: 'de' },
-        stock_dow: { name: 'ดาวโจนส์ ปกติ', flag: 'us' },
-        stock_euro: { name: 'หุ้นยูโร', flag: 'eu' },
-        yeekee_normal: { name: 'ยี่กีธรรมดา', flag: 'th' },
-        yeekee_vip: { name: 'ยี่กี VIP', flag: 'th' },
-        yeekee_star: { name: 'ยี่กี Star', flag: 'th' },
+        thai_gov: { name: 'รัฐบาลไทย', flag: 'th', emoji: '🇹🇭' },
+        lao_normal: { name: 'หวยลาว', flag: 'la', emoji: '🇱🇦' },
+        lao_dev: { name: 'ลาวพัฒนา', flag: 'la', emoji: '🇱🇦' },
+        lao_extra: { name: 'ลาว Extra', flag: 'la', emoji: '🇱🇦' },
+        lao_tv: { name: 'ลาว TV', flag: 'la', emoji: '🇱🇦' },
+        lao_hd: { name: 'ลาว HD', flag: 'la', emoji: '🇱🇦' },
+        lao_star: { name: 'ลาว Star', flag: 'la', emoji: '🇱🇦' },
+        lao_samakkhi: { name: 'ลาวสามัคคี', flag: 'la', emoji: '🇱🇦' },
+        lao_asean: { name: 'ลาวอาเซียน', flag: 'la', emoji: '🇱🇦' },
+        lao_vip: { name: 'ลาว VIP', flag: 'la', emoji: '🇱🇦' },
+        lao_samakkhi_vip: { name: 'ลาวสามัคคี VIP', flag: 'la', emoji: '🇱🇦' },
+        lao_star_vip: { name: 'ลาว Star VIP', flag: 'la', emoji: '🇱🇦' },
+        lao_redcross: { name: 'ลาวกาชาด', flag: 'la', emoji: '🇱🇦' },
+        hanoi_normal: { name: 'ฮานอยปกติ', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_special: { name: 'ฮานอยพิเศษ', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_vip: { name: 'ฮานอย VIP', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_extra: { name: 'ฮานอย EXTRA', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_star: { name: 'ฮานอย Star', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_asean: { name: 'ฮานอยอาเซียน', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_hd: { name: 'ฮานอย HD', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_tv: { name: 'ฮานอย TV', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_redcross: { name: 'ฮานอยกาชาด', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_samakkhi: { name: 'ฮานอยสามัคคี', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_dev: { name: 'ฮานอยพัฒนา', flag: 'vn', emoji: '🇻🇳' },
+        hanoi_late: { name: 'ฮานอยรอบดึก', flag: 'vn', emoji: '🇻🇳' },
+        malay_normal: { name: 'หวยมาเลย์', flag: 'my', emoji: '🇲🇾' },
+        malay_vip: { name: 'มาเลย์ VIP', flag: 'my', emoji: '🇲🇾' },
+        malay_star: { name: 'มาเลย์ Star', flag: 'my', emoji: '🇲🇾' },
+        stock_thai: { name: 'หุ้นไทย (ปกติ)', flag: 'th', emoji: '🇹🇭' },
+        stock_thai_evening: { name: 'หุ้นไทยเย็น', flag: 'th', emoji: '🇹🇭' },
+        stock_ch9: { name: 'หุ้นช่อง 9', flag: 'th', emoji: '🇹🇭' },
+        stock_nikkei_m: { name: 'นิเคอิ (เช้า)', flag: 'jp', emoji: '🇯🇵' },
+        stock_nikkei_a: { name: 'นิเคอิ (บ่าย)', flag: 'jp', emoji: '🇯🇵' },
+        stock_china_m: { name: 'หุ้นจีน (เช้า)', flag: 'cn', emoji: '🇨🇳' },
+        stock_china_a: { name: 'หุ้นจีน (บ่าย)', flag: 'cn', emoji: '🇨🇳' },
+        stock_hsi_m: { name: 'ฮั่งเส็ง (เช้า)', flag: 'hk', emoji: '🇭🇰' },
+        stock_hsi_a: { name: 'ฮั่งเส็ง (บ่าย)', flag: 'hk', emoji: '🇭🇰' },
+        stock_taiwan: { name: 'หุ้นไต้หวัน', flag: 'tw', emoji: '🇹🇼' },
+        stock_korea: { name: 'หุ้นเกาหลี', flag: 'kr', emoji: '🇰🇷' },
+        stock_sg: { name: 'หุ้นสิงคโปร์', flag: 'sg', emoji: '🇸🇬' },
+        stock_india: { name: 'หุ้นอินเดีย', flag: 'in', emoji: '🇮🇳' },
+        stock_egypt: { name: 'หุ้นอียิปต์', flag: 'eg', emoji: '🇪🇬' },
+        stock_russia: { name: 'หุ้นรัสเซีย', flag: 'ru', emoji: '🇷🇺' },
+        stock_ftse: { name: 'หุ้นอังกฤษ', flag: 'gb', emoji: '🇬🇧' },
+        stock_dax: { name: 'หุ้นเยอรมัน', flag: 'de', emoji: '🇩🇪' },
+        stock_dow: { name: 'ดาวโจนส์ ปกติ', flag: 'us', emoji: '🇺🇸' },
+        stock_euro: { name: 'หุ้นยูโร', flag: 'eu', emoji: '🇪🇺' },
+        yeekee_normal: { name: 'ยี่กีธรรมดา', flag: 'th', emoji: '🎯' },
+        yeekee_vip: { name: 'ยี่กี VIP', flag: 'th', emoji: '🎯' },
+        yeekee_star: { name: 'ยี่กี Star', flag: 'th', emoji: '🎯' },
       }
 
+      // ====================================================
+      //  FLAG LOADING with CORS fallback
+      // ====================================================
       function getFlagUrl(code) {
         return `https://flagcdn.com/w320/${code}.png`
       }
+
       function awaitImageLoad(imgElem) {
         return new Promise(resolve => {
-          if (imgElem.complete) return resolve()
-          imgElem.onload = resolve
-          imgElem.onerror = resolve
+          if (imgElem.complete && imgElem.naturalWidth > 0) return resolve(true)
+          const onLoad = () => {
+            cleanup()
+            resolve(true)
+          }
+          const onError = () => {
+            cleanup()
+            resolve(false)
+          }
+          imgElem.addEventListener('load', onLoad, { once: true })
+          imgElem.addEventListener('error', onError, { once: true })
+          // Safety timeout: 5s
+          const t = setTimeout(() => {
+            cleanup()
+            resolve(false)
+          }, 5000)
+          function cleanup() {
+            clearTimeout(t)
+          }
         })
       }
 
+      async function loadFlagWithFallback(code, emoji) {
+        const url = getFlagUrl(code)
+        const flagReal = document.getElementById('rFlagReal')
+        const flagBg = document.getElementById('rFlagBg')
+        const fallback = document.getElementById('rFlagFallback')
+
+        flagReal.style.display = 'block'
+        fallback.style.display = 'none'
+        flagReal.src = url
+        flagBg.src = url
+
+        const ok = await awaitImageLoad(flagReal)
+        if (!ok) {
+          // Flag CDN failed — show emoji fallback circle instead
+          flagReal.style.display = 'none'
+          flagBg.src = ''
+          fallback.style.display = 'flex'
+          fallback.textContent = emoji || '🏳'
+        }
+      }
+
+      // ====================================================
+      //  LUNAR DATE (approximation)
+      // ====================================================
       function calculateLunarDate(targetDate) {
         const refDate = new Date(2026, 5, 5)
         const diffDays = Math.floor(
-          (targetDate.getTime() - refDate.getTime()) / (1000 * 60 * 60 * 24)
+          (targetDate.getTime() - refDate.getTime()) / 86400000
         )
         const synodic = 29.53059
-        let lunarCycleDay = (20 + diffDays) % synodic
-        if (lunarCycleDay < 0) lunarCycleDay += synodic
-        let phase = '',
-          count = 0
+        let lunarCycleDay = (((20 + diffDays) % synodic) + synodic) % synodic
+        let phase, count
         if (lunarCycleDay < 14.765) {
           phase = 'ขึ้น'
-          count = Math.floor(lunarCycleDay) + 1
+          count = Math.max(1, Math.floor(lunarCycleDay) + 1)
         } else {
           phase = 'แรม'
-          count = Math.floor(lunarCycleDay - 14.765) + 1
-          if (count > 15) count = 15
-          if (count <= 0) count = 1
+          count = Math.min(
+            15,
+            Math.max(1, Math.floor(lunarCycleDay - 14.765) + 1)
+          )
         }
         const monthsDiff = diffDays / synodic
-        let lunarMonth = Math.round(7 + monthsDiff) % 12
-        if (lunarMonth <= 0) lunarMonth += 12
+        let lunarMonth = ((Math.round(7 + monthsDiff) % 12) + 12) % 12 || 12
         const yearBE = targetDate.getFullYear() + 543
-        const zodiacIndex = (yearBE - 2569 + 12000) % 12
+        const zodiacIndex = (((yearBE - 2569) % 12) + 12) % 12
         const zodiac = ZODIACS_THAI[zodiacIndex]
-        let chiDayRaw = (20 + diffDays) % 29.53
-        if (chiDayRaw < 0) chiDayRaw += 29.53
-        let chiDay = Math.floor(chiDayRaw) + 1
-        if (chiDay > 30) chiDay = 30
-        let chiMonth = Math.round(4 + monthsDiff) % 12
-        if (chiMonth <= 0) chiMonth += 12
+        let chiDay = Math.min(
+          30,
+          Math.max(
+            1,
+            Math.floor((((20 + diffDays) % 29.53) + 29.53) % 29.53) + 1
+          )
+        )
+        let chiMonth = ((Math.round(4 + monthsDiff) % 12) + 12) % 12 || 12
         return {
           day: targetDate.getDate(),
           monthNameTH: THAI_MONTHS[targetDate.getMonth()],
@@ -1841,76 +1950,98 @@
         }
       }
 
+      // ====================================================
+      //  SKIN
+      // ====================================================
       function updateSkin() {
-        const skin = document.getElementById('paperSkin').value
-        if (skin === 'cream') {
-          document.documentElement.style.setProperty('--paper-color', '#f7f3e9')
-          document.documentElement.style.setProperty('--paper-ink', '#111827')
-          document.documentElement.style.setProperty('--paper-red', '#c22121')
-          document.documentElement.style.setProperty(
-            '--paper-border',
-            'rgba(194,33,33,0.25)'
-          )
-        } else if (skin === 'red') {
-          document.documentElement.style.setProperty('--paper-color', '#991b1b')
-          document.documentElement.style.setProperty('--paper-ink', '#fef08a')
-          document.documentElement.style.setProperty('--paper-red', '#ffffff')
-          document.documentElement.style.setProperty(
-            '--paper-border',
-            'rgba(255,255,255,0.35)'
-          )
-        } else if (skin === 'white') {
-          document.documentElement.style.setProperty('--paper-color', '#ffffff')
-          document.documentElement.style.setProperty('--paper-ink', '#000000')
-          document.documentElement.style.setProperty('--paper-red', '#e11d48')
-          document.documentElement.style.setProperty(
-            '--paper-border',
-            'rgba(225,29,72,0.25)'
-          )
+        const skins = {
+          cream: {
+            color: '#f7f3e9',
+            ink: '#111827',
+            red: '#c22121',
+            border: 'rgba(194,33,33,0.25)',
+          },
+          red: {
+            color: '#991b1b',
+            ink: '#fef08a',
+            red: '#ffffff',
+            border: 'rgba(255,255,255,0.35)',
+          },
+          white: {
+            color: '#ffffff',
+            ink: '#000000',
+            red: '#e11d48',
+            border: 'rgba(225,29,72,0.25)',
+          },
         }
+        const s =
+          skins[document.getElementById('paperSkin').value] || skins.cream
+        const r = document.documentElement.style
+        r.setProperty('--paper-color', s.color)
+        r.setProperty('--paper-ink', s.ink)
+        r.setProperty('--paper-red', s.red)
+        r.setProperty('--paper-border', s.border)
       }
 
+      // ====================================================
+      //  LOTTERY TITLE + FLAG
+      // ====================================================
       function updateLotteryTitle() {
         const data = LOTTERY_DATA[
           document.getElementById('lotteryType').value
-        ] || { name: 'แนวทาง', flag: 'th' }
+        ] || { name: 'แนวทาง', flag: 'th', emoji: '🏳' }
         document.getElementById('rLotteryTypeName').innerText =
           'แนวทาง' + data.name
-        const flagReal = document.getElementById('rFlagReal'),
-          flagBg = document.getElementById('rFlagBg')
+        // Load flags asynchronously — don't await here; generatePremiumImage awaits separately
+        const flagReal = document.getElementById('rFlagReal')
+        const flagBg = document.getElementById('rFlagBg')
         flagReal.src = getFlagUrl(data.flag)
         flagBg.src = getFlagUrl(data.flag)
         randomizeAllNumbers()
       }
 
-      function updateStarsPreview() {
-        document.getElementById('previewStars').innerText =
-          document.getElementById('starsRating').value
+      // ====================================================
+      //  RANDOMIZE (FIX: no duplicates across 2-digit/3-digit, proper loop)
+      // ====================================================
+      function secureRandom(min, max) {
+        const arr = new Uint32Array(1)
+        window.crypto.getRandomValues(arr)
+        return Math.floor((arr[0] / (0xffffffff + 1)) * (max - min + 1)) + min
+      }
+
+      function getUniqueSets(count, digits, forced = []) {
+        const max = Math.pow(10, digits) - 1
+        const limit = Math.min(count, max + 1)
+        const set = new Set()
+
+        // Add forced values first (padded, unique only)
+        for (const n of forced) {
+          const val = String(n).padStart(digits, '0')
+          if (val.length === digits) set.add(val)
+          if (set.size >= limit) break
+        }
+
+        // Fill remaining with random, max 500 attempts to avoid infinite loop
+        let attempts = 0
+        while (set.size < limit && attempts < 500) {
+          attempts++
+          set.add(String(secureRandom(0, max)).padStart(digits, '0'))
+        }
+        return [...set].slice(0, limit)
       }
 
       function randomizeAllNumbers() {
-        const secureRandom = (min, max) => {
-          const arr = new Uint32Array(1)
-          window.crypto.getRandomValues(arr)
-          return Math.floor((arr[0] / (0xffffffff + 1)) * (max - min + 1)) + min
-        }
-        const getUniqueSets = (count, digits, forced = []) => {
-          const set = new Set(forced.map(n => String(n).padStart(digits, '0')))
-          const max = Math.pow(10, digits) - 1
-          const limit = Math.min(count, max + 1)
-          let t = 0
-          while (set.size < limit && t++ < 9999)
-            set.add(String(secureRandom(0, max)).padStart(digits, '0'))
-          return [...set]
-        }
         let den1 = secureRandom(1, 9),
           den2
         do {
           den2 = secureRandom(1, 9)
         } while (den1 === den2)
-        const runStr = `${den1} - ${den2}`,
-          db1 = `${den1}${den1}`,
+
+        const runStr = `${den1} - ${den2}`
+        const db1 = `${den1}${den1}`,
           db2 = `${den2}${den2}`
+
+        // 2-digit: force den combos, then random
         const forcedTwo = [
           `${den1}${den2}`,
           `${den2}${den1}`,
@@ -1918,6 +2049,9 @@
           `${secureRandom(0, 9)}${den2}`,
         ]
         const twoDigits = getUniqueSets(8, 2, forcedTwo)
+
+        // 3-digit: force combos using den, EXCLUDE any 2-digit match
+        const twoSet = new Set(twoDigits)
         const rVal = () => secureRandom(0, 9)
         const forcedThree = [
           `${den1}${den2}${rVal()}`,
@@ -1925,17 +2059,22 @@
           `${den2}${rVal()}${den1}`,
           `${den1}${rVal()}${den2}`,
         ]
+        // getUniqueSets handles de-dup within 3-digit set (no overlap needed vs 2-digit since lengths differ)
         const threeDigits = getUniqueSets(8, 3, forcedThree)
-        let pool = [den1, den2]
-        for (let i = 1; i <= 8; i++) {
-          const v = twoDigits[i - 1] || ''
-          if (v.length === 2) pool.push(v[0], v[1])
-        }
+
+        // Grid values from pool of den + 2-digit digits
+        let pool = [String(den1), String(den2)]
+        twoDigits.forEach(v => {
+          if (v.length === 2) {
+            pool.push(v[0], v[1])
+          }
+        })
         let uniq = [...new Set(pool)].filter(x => x >= '0' && x <= '9')
-        for (let f of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']) {
+        for (const f of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']) {
           if (uniq.length >= 5) break
           if (!uniq.includes(f)) uniq.push(f)
         }
+
         document.getElementById('numDen1').value = den1
         document.getElementById('numDen2').value = den2
         document.getElementById('numRun').value = runStr
@@ -1947,15 +2086,19 @@
         document.getElementById('double1').value = db1
         document.getElementById('double2').value = db2
         for (let i = 1; i <= 8; i++) {
-          document.getElementById(`two${i}`).value = twoDigits[i - 1]
-          document.getElementById(`three${i}`).value = threeDigits[i - 1]
+          document.getElementById(`two${i}`).value = twoDigits[i - 1] || '00'
+          document.getElementById(`three${i}`).value =
+            threeDigits[i - 1] || '000'
         }
         syncInputsToCanvas()
       }
 
+      // ====================================================
+      //  SYNC INPUTS → CANVAS DOM
+      // ====================================================
       function syncInputsToCanvas() {
-        const d1 = document.getElementById('numDen1').value || '0',
-          d2 = document.getElementById('numDen2').value || '0'
+        const d1 = document.getElementById('numDen1').value || '0'
+        const d2 = document.getElementById('numDen2').value || '0'
         document.getElementById('rDen1').innerText = d1
         document.getElementById('rDen2').innerText = d2
         document.getElementById('rRun').innerText =
@@ -1970,50 +2113,62 @@
           document.getElementById('gridRight').value || '0'
         document.getElementById('rGridBottom').innerText =
           document.getElementById('gridBottom').value || '0'
+
         let twoHtml = ''
         for (let i = 1; i <= 8; i++)
           twoHtml += `<div class="two-digit-item">${document.getElementById(`two${i}`).value || '00'}</div>`
         document.getElementById('rGridTwoDigits').innerHTML = twoHtml
+
         document.getElementById('rDoubleWrapper').innerHTML =
           `<span>${document.getElementById('double1').value || '00'}</span> <span>${document.getElementById('double2').value || '11'}</span>`
+
         let threeHtml = ''
         for (let i = 1; i <= 8; i++)
           threeHtml += `<div class="three-digit-item">${document.getElementById(`three${i}`).value || '000'}</div>`
         document.getElementById('rGridThreeDigits').innerHTML = threeHtml
       }
 
+      // ====================================================
+      //  DATE CALCULATION → UPDATE DOM
+      // ====================================================
       function calculateDatesAndRender() {
         const dateVal = document.getElementById('dateInput').value
         if (!dateVal) return
-        const targetDate = new Date(dateVal),
-          info = calculateLunarDate(targetDate)
+        const targetDate = new Date(dateVal)
+        const info = calculateLunarDate(targetDate)
         calculatedLunarInfo = info
-        const thaiLunarCount = toThaiDigits(info.thaiCount),
-          thaiLunarMonth = toThaiDigits(info.thaiMonth)
+
+        const thaiLunarCount = toThaiDigits(info.thaiCount)
+        const thaiLunarMonth = toThaiDigits(info.thaiMonth)
+
         document.getElementById('rThaiMonthYear').innerText =
           `${info.day} ${info.monthNameTH} ${info.yearBE}`
         document.getElementById('rThaiLunarHeader').innerText =
           `${info.thaiPhase} ${thaiLunarCount} ค่ำ เดือน ${thaiLunarMonth} ปี${info.thaiZodiac}`
         document.getElementById('rEngMonthYear').innerText =
           `${ENG_MONTHS[targetDate.getMonth()]} ${targetDate.getFullYear()}`
+
+        const d = info.day
         const chiDayText =
-          info.day <= 10
-            ? CHI_NUMS[info.day]
-            : info.day < 20
-              ? '十' + CHI_NUMS[info.day - 10]
-              : info.day === 20
+          d <= 10
+            ? CHI_NUMS[d]
+            : d < 20
+              ? '十' + CHI_NUMS[d - 10]
+              : d === 20
                 ? '二十'
-                : info.day < 30
-                  ? '二十' + CHI_NUMS[info.day - 20]
-                  : '三十' + CHI_NUMS[info.day - 30]
+                : d < 30
+                  ? '二十' + CHI_NUMS[d - 20]
+                  : '三十' + CHI_NUMS[d - 30]
         document.getElementById('rChiSolarLabel').innerText =
           `陽曆${CHI_NUMS[targetDate.getMonth() + 1]}月${chiDayText}日`
+
         document.getElementById('rBannerThai').innerText =
           DAYS_TH[info.dayOfWeekIndex]
         document.getElementById('rBannerChinese').innerText =
           DAYS_CH[info.dayOfWeekIndex]
         document.getElementById('rBannerEng').innerText =
           DAYS_EN[info.dayOfWeekIndex]
+
         const sizeLabel = info.chiDayNum > 29 ? '大' : '小'
         document.getElementById('rChiLunarDate').innerText =
           `${info.chiYearName} ${info.chiMonthStr}${sizeLabel} ${info.chiDayStr}`
@@ -2021,50 +2176,86 @@
           `ปี${info.thaiZodiac} เดือน ${info.chiMonthNum} จีน<br/>${info.thaiPhase} ${thaiLunarCount} ค่ำ เดือน ${thaiLunarMonth} ไทย`
       }
 
+      // ====================================================
+      //  GENERATE IMAGE (html2canvas)
+      //  FIX: font preload timeout, flag fallback, button lock
+      // ====================================================
       async function generatePremiumImage() {
+        const btn = document.getElementById('btnGenerate')
+        btn.disabled = true
+        btn.textContent = '⏳ กำลังสร้างภาพ...'
+
         document.getElementById('placeholder').style.display = 'none'
         document.getElementById('previewImg').style.display = 'none'
         document.getElementById('actionBar').style.display = 'none'
         document.getElementById('loader').style.display = 'flex'
+
         calculateDatesAndRender()
         syncInputsToCanvas()
-        updateStarsPreview()
-        // Auto-expand preview on mobile after generate
-        if (window.innerWidth <= 768 && sidebarOpen) {
-          toggleSidebar()
-        }
-        const flagReal = document.getElementById('rFlagReal'),
-          flagBg = document.getElementById('rFlagBg')
+
+        if (window.innerWidth <= 768 && sidebarOpen) toggleSidebar()
+
+        const data = LOTTERY_DATA[
+          document.getElementById('lotteryType').value
+        ] || { flag: 'th', emoji: '🏳' }
+
         try {
-          await document.fonts.ready
-          await Promise.all([awaitImageLoad(flagReal), awaitImageLoad(flagBg)])
-          await new Promise(resolve => setTimeout(resolve, 800))
+          // 1. Wait for fonts with timeout
+          await Promise.race([
+            document.fonts.ready,
+            new Promise(resolve => setTimeout(resolve, 3000)),
+          ])
+
+          // 2. Load flags with fallback
+          await loadFlagWithFallback(data.flag, data.emoji)
+
+          // 3. Extra settle time for layout
+          await new Promise(resolve => setTimeout(resolve, 600))
+
           const renderZone = document.getElementById('renderZone')
           const canvas = await html2canvas(renderZone, {
             scale: 1.25,
             useCORS: true,
+            allowTaint: false,
             backgroundColor: null,
             logging: false,
+            imageTimeout: 8000,
+            onclone(clonedDoc) {
+              // Ensure cloned flags inherit src
+              const fReal = clonedDoc.getElementById('rFlagReal')
+              const fBg = clonedDoc.getElementById('rFlagBg')
+              if (fReal) fReal.crossOrigin = 'anonymous'
+              if (fBg) fBg.crossOrigin = 'anonymous'
+            },
           })
+
           currentBase64Image = canvas.toDataURL('image/jpeg', 0.95)
           const previewImg = document.getElementById('previewImg')
           previewImg.src = currentBase64Image
           document.getElementById('loader').style.display = 'none'
           previewImg.style.display = 'block'
           document.getElementById('actionBar').style.display = 'grid'
-          // Scroll to preview on mobile
+
+          showToast('✅ สร้างภาพสำเร็จ! พร้อมบันทึกและแชร์แล้วครับ')
+
           if (window.innerWidth <= 768)
             document
               .querySelector('.main-view')
               .scrollIntoView({ behavior: 'smooth' })
-        } catch (error) {
-          console.error('Render Error:', error)
-          alert('เกิดข้อผิดพลาดในการจำลองปฏิทิน กรุณาลองใหม่อีกครั้งครับผม 🐷')
+        } catch (err) {
+          console.error('Render Error:', err)
           document.getElementById('loader').style.display = 'none'
           document.getElementById('placeholder').style.display = 'block'
+          showToast('❌ เกิดข้อผิดพลาดในการสร้างภาพ กรุณาลองใหม่ครับ', 4000)
+        } finally {
+          btn.disabled = false
+          btn.textContent = '🔮 อัปเดตข้อมูล & สลักภาพโบราณ'
         }
       }
 
+      // ====================================================
+      //  SAVE
+      // ====================================================
       function saveImage() {
         if (!currentBase64Image) return
         const data = LOTTERY_DATA[
@@ -2075,13 +2266,17 @@
         link.download = `joakmu-calendar-${data.name.replace(/\s+/g, '')}-${dateVal}.jpg`
         link.href = currentBase64Image
         link.click()
+        showToast('💾 บันทึกรูปภาพลงเครื่องแล้วค๊าบ!')
       }
 
+      // ====================================================
+      //  SHARE  (Web Share API)
+      // ====================================================
       async function shareImage() {
         if (!currentBase64Image) return
         try {
-          const res = await fetch(currentBase64Image),
-            blob = await res.blob()
+          const res = await fetch(currentBase64Image)
+          const blob = await res.blob()
           const file = new File([blob], 'joakmu-calendar.jpg', {
             type: 'image/jpeg',
           })
@@ -2091,15 +2286,19 @@
           })
         } catch (err) {
           if (err.name !== 'AbortError')
-            alert(
-              'เบราว์เซอร์นี้ไม่รองรับการแชร์ไฟล์ภาพโดยตรง แนะนำให้กดบันทึกรูปลงเครื่องแล้วโพสต์ด้วยตนเองนะครับ 🐷'
+            showToast(
+              '📲 แนะนำกด "บันทึกรูป" แล้วโพสต์เองนะครับ เบราว์เซอร์นี้ไม่รองรับแชร์ไฟล์โดยตรง',
+              4000
             )
         }
       }
 
-      function copyCaption() {
+      // ====================================================
+      //  COPY CAPTION  (FIX: uses navigator.clipboard)
+      // ====================================================
+      async function copyCaption() {
         if (!calculatedLunarInfo) {
-          alert('กรุณากดปุ่ม "🔮 อัปเดตข้อมูล & สลักภาพโบราณ" ก่อนนะครับ')
+          showToast('⚠️ กรุณากดปุ่ม "สลักภาพ" ก่อนนะครับ', 3000)
           return
         }
         const data = LOTTERY_DATA[
@@ -2107,46 +2306,64 @@
         ] || { name: 'แนวทาง' }
         const typeVal = 'แนวทาง' + data.name
         const thaiDateStr = `${calculatedLunarInfo.day} ${calculatedLunarInfo.monthNameTH} ${calculatedLunarInfo.yearBE}`
+
         if (availableCaptions.length === 0)
           availableCaptions = [...PREMIUM_CAPTIONS]
-        const randomIndex = Math.floor(Math.random() * availableCaptions.length)
-        const selectedCaption = availableCaptions.splice(randomIndex, 1)[0]
-        const finalCaption = selectedCaption.replace(/\[NAME\]/g, typeVal)
-        const hashtagName = typeVal.replace(/\s+/g, '')
-        const formattedText = `🐷 ปฏิทินฉีกจีนนำโชค สำนักโจ๊กหมู 🐷\n🗓 งวดประจำวันที่: ${thaiDateStr}\n🎯 แนวทาง: ${typeVal}\n\n${finalCaption}\n\n#โจ๊กหมู #ปฏิทินจีนนำโชค #เลขเด่นปฏิทินโบราณ #แนวทางหวย #${hashtagName}`
+        const idx = secureRandom(0, availableCaptions.length - 1)
+        const caption = availableCaptions
+          .splice(idx, 1)[0]
+          .replace(/\[NAME\]/g, typeVal)
+        const hashtag = typeVal.replace(/\s+/g, '')
+
+        const text = [
+          `🐷 ปฏิทินฉีกจีนนำโชค สำนักโจ๊กหมู 🐷`,
+          `🗓 งวดประจำวันที่: ${thaiDateStr}`,
+          `🎯 แนวทาง: ${typeVal}`,
+          '',
+          caption,
+          '',
+          `#โจ๊กหมู #ปฏิทินจีนนำโชค #เลขเด่นปฏิทินโบราณ #แนวทางหวย #${hashtag}`,
+        ].join('\n')
+
         try {
-          const t = document.createElement('textarea')
-          t.value = formattedText
-          document.body.appendChild(t)
-          t.select()
-          document.execCommand('copy')
-          document.body.removeChild(t)
-          alert('📋 คัดลอกแคปชั่นพร้อมแท็กเฉพาะ เรียบร้อยแล้วค๊าบ!')
-        } catch (err) {
-          alert('ไม่สามารถคัดลอกได้โดยอัตโนมัติ กรุณาลองใหม่อีกครั้ง')
+          await copyToClipboard(text)
+          showToast('📋 คัดลอกแคปชั่นพร้อมแท็กเรียบร้อยแล้วค๊าบ!')
+        } catch {
+          showToast('❌ ไม่สามารถคัดลอกได้ กรุณาลองใหม่อีกครั้ง', 3000)
         }
       }
 
+      // ====================================================
+      //  INIT
+      // ====================================================
       window.onload = function () {
         const d = new Date()
-        const yyyy = d.getFullYear(),
-          mm = String(d.getMonth() + 1).padStart(2, '0'),
-          dd = String(d.getDate()).padStart(2, '0')
-        document.getElementById('dateInput').value = `${yyyy}-${mm}-${dd}`
+        const yy = d.getFullYear()
+        const mm = String(d.getMonth() + 1).padStart(2, '0')
+        const dd = String(d.getDate()).padStart(2, '0')
+        document.getElementById('dateInput').value = `${yy}-${mm}-${dd}`
+
         initMobileCollapse()
         updateSkin()
-        updateLotteryTitle()
+        updateLotteryTitle() // also calls randomize + syncCanvas
         calculateDatesAndRender()
-        if (
+
+        // Show/hide native share button
+        const canShare = !!(
           navigator.canShare &&
-          navigator.canShare({
-            files: [new File([], 't.jpg', { type: 'image/jpeg' })],
-          })
-        ) {
-          document.getElementById('shareBtn').style.display = 'inline-flex'
-        } else {
-          document.getElementById('shareBtn').style.display = 'none'
-        }
+          (() => {
+            try {
+              return navigator.canShare({
+                files: [new File([], 't.jpg', { type: 'image/jpeg' })],
+              })
+            } catch {
+              return false
+            }
+          })()
+        )
+        document.getElementById('shareBtn').style.display = canShare
+          ? 'inline-flex'
+          : 'none'
       }
     </script>
   </body>

@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
+    
     <style>
       :root {
         --bg-dark: #090d16;
@@ -19,19 +19,15 @@
         --text-main: #f3f4f6;
         --text-muted: #9ca3af;
         --border: #374151;
-
+        
         --paper-color: #f7f3e9;
         --paper-ink: #111827;
         --paper-red: #c22121;
         --paper-border: rgba(194, 33, 33, 0.25);
       }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
+      
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      
       body {
         font-family: 'Kanit', sans-serif;
         background-color: var(--bg-dark);
@@ -41,10 +37,7 @@
       }
 
       /* === DASHBOARD LAYOUT === */
-      .dashboard {
-        display: flex;
-        height: 100vh;
-      }
+      .dashboard { display: flex; height: 100vh; }
       .sidebar {
         width: 440px;
         background-color: var(--bg-panel);
@@ -77,10 +70,7 @@
         font-weight: 900;
         color: white;
       }
-      .app-brand svg {
-        height: 1.2em;
-        fill: #ef4444;
-      }
+      .app-brand svg { height: 1.2em; fill: #ef4444; }
       .app-desc {
         color: var(--text-muted);
         font-size: 0.8rem;
@@ -88,11 +78,7 @@
         border-bottom: 1px solid var(--border);
         padding-bottom: 12px;
       }
-      .control-group {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
+      .control-group { display: flex; flex-direction: column; gap: 4px; }
       .control-group label {
         font-size: 0.8rem;
         font-weight: 600;
@@ -100,9 +86,7 @@
         display: flex;
         justify-content: space-between;
       }
-      .control-group label span {
-        color: #fca5a5;
-      }
+      .control-group label span { color: #fca5a5; }
       .form-control {
         background: #030712;
         color: white;
@@ -116,10 +100,7 @@
         cursor: pointer;
         width: 100%;
       }
-      .form-control:focus,
-      .form-control:hover {
-        border-color: #ef4444;
-      }
+      .form-control:focus, .form-control:hover { border-color: #ef4444; }
 
       .numbers-panel {
         background: #030712;
@@ -138,25 +119,10 @@
         padding-bottom: 4px;
         margin-bottom: 2px;
       }
-      .inline-inputs {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
-      .grid-inputs-eight {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 6px;
-      }
-      .number-sub-box {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      .number-sub-box label {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-      }
+      .inline-inputs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .grid-inputs-eight { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+      .number-sub-box { display: flex; flex-direction: column; gap: 2px; }
+      .number-sub-box label { font-size: 0.7rem; color: var(--text-muted); }
       .number-sub-box input {
         width: 100%;
         text-align: center;
@@ -187,10 +153,7 @@
         gap: 8px;
         margin-top: 5px;
       }
-      .btn-generate:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 15px rgba(239, 68, 68, 0.35);
-      }
+      .btn-generate:hover { transform: translateY(-1px); box-shadow: 0 6px 15px rgba(239, 68, 68, 0.35); }
 
       .btn-randomize {
         background: #1e293b;
@@ -208,10 +171,7 @@
         gap: 6px;
         transition: all 0.2s;
       }
-      .btn-randomize:hover {
-        background: #334155;
-        color: #ffffff;
-      }
+      .btn-randomize:hover { background: #334155; color: #ffffff; }
 
       /* === PREVIEW AREA === */
       .preview-wrapper {
@@ -235,22 +195,9 @@
         position: relative;
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
       }
-      .preview-image {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: none;
-      }
-      .empty-placeholder {
-        text-align: center;
-        color: var(--text-muted);
-        padding: 20px;
-      }
-      .empty-placeholder span {
-        font-size: 3.5rem;
-        display: block;
-        margin-bottom: 8px;
-      }
+      .preview-image { width: 100%; height: 100%; object-fit: contain; display: none; }
+      .empty-placeholder { text-align: center; color: var(--text-muted); padding: 20px; }
+      .empty-placeholder span { font-size: 3.5rem; display: block; margin-bottom: 8px; }
 
       /* === ACTION BUTTONS === */
       .action-bar {
@@ -275,22 +222,10 @@
         justify-content: center;
         gap: 6px;
       }
-      .btn-action:hover {
-        background: #1f2937;
-        transform: translateY(-2px);
-      }
-      .btn-action.save {
-        color: #38bdf8;
-        border-color: #0284c7;
-      }
-      .btn-action.share {
-        color: #34d399;
-        border-color: #059669;
-      }
-      .btn-action.copy {
-        color: #fbbf24;
-        border-color: #d97706;
-      }
+      .btn-action:hover { background: #1f2937; transform: translateY(-2px); }
+      .btn-action.save { color: #38bdf8; border-color: #0284c7; }
+      .btn-action.share { color: #34d399; border-color: #059669; }
+      .btn-action.copy { color: #fbbf24; border-color: #d97706; }
 
       /* === LOADING OVERLAY === */
       .loader-overlay {
@@ -315,11 +250,7 @@
         animation: spin 0.8s linear infinite;
         margin-bottom: 12px;
       }
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
+      @keyframes spin { to { transform: rotate(360deg); } }
 
       /* =========================================================
          CANVAS RENDER CONTAINER (1080x1080)
@@ -335,17 +266,15 @@
         justify-content: center;
         background: #1e1e1e;
       }
-
+      
       .calendar-sheet {
         width: 1080px;
         height: 1080px;
         background-color: var(--paper-color);
-        background-image:
-          radial-gradient(rgba(0, 0, 0, 0.015) 15%, transparent 20%),
-          linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
-        background-size:
-          4px 4px,
-          100% 100%;
+        background-image: 
+          radial-gradient(rgba(0,0,0,0.015) 15%, transparent 20%),
+          linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0));
+        background-size: 4px 4px, 100% 100%;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -354,16 +283,12 @@
         box-sizing: border-box;
         overflow: hidden;
       }
-
+      
       .calendar-sheet::before {
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(
-          circle,
-          rgba(0, 0, 0, 0) 65%,
-          rgba(139, 92, 26, 0.06) 100%
-        );
+        background: radial-gradient(circle, rgba(0,0,0,0) 65%, rgba(139,92,26,0.06) 100%);
         pointer-events: none;
         z-index: 10;
       }
@@ -377,7 +302,7 @@
         background: #2b0c11;
         border-bottom: 4px solid #1a060a;
         z-index: 20;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         display: flex;
         justify-content: space-around;
         align-items: center;
@@ -389,7 +314,7 @@
         background: linear-gradient(135deg, #eab308, #ca8a04);
         border-radius: 50%;
         border: 1px solid #854d0e;
-        box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.4);
+        box-shadow: inset 1px 1px 2px rgba(255,255,255,0.4);
       }
 
       .cal-border-outer {
@@ -421,7 +346,7 @@
         pointer-events: none;
         filter: grayscale(10%);
       }
-
+      
       .cal-flag-real {
         position: absolute;
         top: 65px;
@@ -452,12 +377,22 @@
         align-items: flex-start;
         margin-left: 115px;
       }
-      .cal-thai-month {
-        font-size: 44px;
-        font-weight: 800;
+      /* ✅ ชื่อประเภทหวย ฝั่งซ้ายใต้ธง (ขนาดใหญ่สีแดง) */
+      .cal-lottery-type {
+        font-size: 38px;
+        font-weight: 900;
         color: var(--paper-red);
         line-height: 1.1;
         letter-spacing: -0.5px;
+      }
+      /* ✅ วันที่ภาษาไทย ย้ายมาฝั่งขวา สีดำ */
+      .cal-thai-month {
+        font-size: 34px;
+        font-weight: 800;
+        color: var(--paper-ink);
+        line-height: 1.1;
+        letter-spacing: -0.5px;
+        text-align: right;
       }
       .cal-thai-lunar {
         font-size: 22px;
@@ -472,22 +407,16 @@
         align-items: flex-start;
         gap: 12px;
       }
-      .cal-eng-date {
-        text-align: right;
-      }
+      .cal-eng-date { text-align: right; }
+      /* ✅ JUNE 2026 เล็กลงหน่อยเพราะอยู่ใต้วันที่ไทยแล้ว */
       .cal-eng-month {
-        font-size: 32px;
+        font-size: 24px;
         font-weight: 900;
         color: var(--paper-red);
         line-height: 1;
         letter-spacing: 1px;
-      }
-      .cal-solar-label {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--paper-ink);
-        opacity: 0.6;
-        margin-top: 3px;
+        text-align: right;
+        margin-top: 4px;
       }
       .cal-vertical-chinese {
         writing-mode: vertical-rl;
@@ -531,7 +460,7 @@
         letter-spacing: 2px;
         margin-bottom: 20px;
         text-align: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       }
       .cal-den-nums-wrapper {
         display: flex;
@@ -546,7 +475,7 @@
         color: var(--paper-ink);
         line-height: 0.8;
         font-family: 'Sarabun', serif;
-        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+        text-shadow: 2px 2px 2px rgba(0,0,0,0.15);
       }
       .cal-den-secondary {
         font-size: 130px;
@@ -601,64 +530,16 @@
         grid-template-rows: repeat(3, 1fr);
         pointer-events: none;
       }
-      .grid-line-h {
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: var(--paper-red);
-      }
-      .grid-line-v {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background-color: var(--paper-red);
-      }
-      .line-h1 {
-        top: 33.33%;
-      }
-      .line-h2 {
-        top: 66.66%;
-      }
-      .line-v1 {
-        left: 33.33%;
-      }
-      .line-v2 {
-        left: 66.66%;
-      }
-      .line-border-top {
-        top: 0;
-        left: 33.33%;
-        right: 33.33%;
-        height: 2px;
-        background: var(--paper-red);
-        position: absolute;
-      }
-      .line-border-bottom {
-        bottom: 0;
-        left: 33.33%;
-        right: 33.33%;
-        height: 2px;
-        background: var(--paper-red);
-        position: absolute;
-      }
-      .line-border-left {
-        left: 0;
-        top: 33.33%;
-        bottom: 33.33%;
-        width: 2px;
-        background: var(--paper-red);
-        position: absolute;
-      }
-      .line-border-right {
-        right: 0;
-        top: 33.33%;
-        bottom: 33.33%;
-        width: 2px;
-        background: var(--paper-red);
-        position: absolute;
-      }
+      .grid-line-h { position: absolute; left: 0; right: 0; height: 2px; background-color: var(--paper-red); }
+      .grid-line-v { position: absolute; top: 0; bottom: 0; width: 2px; background-color: var(--paper-red); }
+      .line-h1 { top: 33.33%; }
+      .line-h2 { top: 66.66%; }
+      .line-v1 { left: 33.33%; }
+      .line-v2 { left: 66.66%; }
+      .line-border-top { top: 0; left: 33.33%; right: 33.33%; height: 2px; background: var(--paper-red); position: absolute; }
+      .line-border-bottom { bottom: 0; left: 33.33%; right: 33.33%; height: 2px; background: var(--paper-red); position: absolute; }
+      .line-border-left { left: 0; top: 33.33%; bottom: 33.33%; width: 2px; background: var(--paper-red); position: absolute; }
+      .line-border-right { right: 0; top: 33.33%; bottom: 33.33%; width: 2px; background: var(--paper-red); position: absolute; }
 
       .grid-number {
         position: absolute;
@@ -668,28 +549,11 @@
         transform: translate(-50%, -50%);
         font-family: 'Sarabun', serif;
       }
-      .num-pos-top {
-        top: 16.66%;
-        left: 50%;
-      }
-      .num-pos-left {
-        top: 50%;
-        left: 16.66%;
-      }
-      .num-pos-center {
-        top: 50%;
-        left: 50%;
-        font-size: 54px;
-        color: var(--paper-ink);
-      }
-      .num-pos-right {
-        top: 50%;
-        left: 83.33%;
-      }
-      .num-pos-bottom {
-        top: 83.33%;
-        left: 50%;
-      }
+      .num-pos-top { top: 16.66%; left: 50%; }
+      .num-pos-left { top: 50%; left: 16.66%; }
+      .num-pos-center { top: 50%; left: 50%; font-size: 54px; color: var(--paper-ink); }
+      .num-pos-right { top: 50%; left: 83.33%; }
+      .num-pos-bottom { top: 83.33%; left: 50%; }
 
       /* คอลัมน์ขวา: สองตัว + เบิ้ล */
       .cal-right-column {
@@ -823,15 +687,8 @@
         gap: 12px;
         border: 2px solid var(--paper-red);
       }
-      .cb-brand {
-        font-size: 24px;
-        font-weight: 800;
-        color: var(--paper-ink);
-      }
-      .cb-brand-pill svg {
-        height: 24px;
-        fill: var(--paper-red);
-      }
+      .cb-brand { font-size: 24px; font-weight: 800; color: var(--paper-ink); }
+      .cb-brand-pill svg { height: 24px; fill: var(--paper-red); }
 
       /* BANNER: วันในสัปดาห์ 3 ภาษา */
       .cal-day-banner {
@@ -845,23 +702,11 @@
         border-radius: 4px;
         margin: 12px 0;
         z-index: 2;
-        box-shadow: 0 4px 8px rgba(194, 33, 33, 0.15);
+        box-shadow: 0 4px 8px rgba(194,33,33,0.15);
       }
-      .banner-thai {
-        font-size: 32px;
-        font-weight: 900;
-        letter-spacing: 1px;
-      }
-      .banner-chinese {
-        font-size: 26px;
-        font-weight: 800;
-        font-family: 'Sarabun', serif;
-      }
-      .banner-eng {
-        font-size: 28px;
-        font-weight: 900;
-        letter-spacing: 2px;
-      }
+      .banner-thai { font-size: 32px; font-weight: 900; letter-spacing: 1px; }
+      .banner-chinese { font-size: 26px; font-weight: 800; font-family: 'Sarabun', serif; }
+      .banner-eng { font-size: 28px; font-weight: 900; letter-spacing: 2px; }
 
       /* FOOTER SECTION */
       .cal-footer {
@@ -872,38 +717,11 @@
         height: 80px;
         z-index: 2;
       }
-      .cal-footer-left {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .farming-icon {
-        width: 50px;
-        height: 50px;
-        fill: var(--paper-ink);
-        opacity: 0.75;
-      }
-      .cal-footer-lunar-label {
-        font-size: 20px;
-        font-weight: 800;
-        color: var(--paper-ink);
-        opacity: 0.8;
-      }
-      .cal-footer-center {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--paper-red);
-        font-family: 'Sarabun', serif;
-        letter-spacing: 1px;
-      }
-      .cal-footer-right {
-        text-align: right;
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--paper-ink);
-        opacity: 0.75;
-        line-height: 1.2;
-      }
+      .cal-footer-left { display: flex; align-items: center; gap: 12px; }
+      .farming-icon { width: 50px; height: 50px; fill: var(--paper-ink); opacity: 0.75; }
+      .cal-footer-lunar-label { font-size: 20px; font-weight: 800; color: var(--paper-ink); opacity: 0.8; }
+      .cal-footer-center { font-size: 24px; font-weight: 700; color: var(--paper-red); font-family: 'Sarabun', serif; letter-spacing: 1px; }
+      .cal-footer-right { text-align: right; font-size: 16px; font-weight: 700; color: var(--paper-ink); opacity: 0.75; line-height: 1.2; }
 
       /* ตราปั๊มแดงโบราณ */
       .stamp-seal {
@@ -912,7 +730,7 @@
         left: 205px;
         width: 90px;
         height: 90px;
-        border: 2px double rgba(194, 33, 33, 0.8);
+        border: 2px double rgba(194,33,33,0.8);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -926,7 +744,7 @@
         white-space: pre-wrap;
         text-align: center;
         font-family: 'Charm', cursive;
-        color: rgba(194, 33, 33, 0.8);
+        color: rgba(194,33,33,0.8);
         font-size: 18px;
         font-weight: 700;
         line-height: 1.1;
@@ -946,17 +764,8 @@
         border-radius: 6px;
         z-index: 4;
       }
-      .auspicious-title {
-        font-size: 12px;
-        font-weight: 800;
-        color: var(--paper-red);
-        margin-bottom: 2px;
-      }
-      .auspicious-stars {
-        color: var(--paper-red);
-        font-size: 14px;
-        letter-spacing: 2px;
-      }
+      .auspicious-title { font-size: 12px; font-weight: 800; color: var(--paper-red); margin-bottom: 2px; }
+      .auspicious-stars { color: var(--paper-red); font-size: 14px; letter-spacing: 2px; }
     </style>
   </head>
   <body>
@@ -965,15 +774,11 @@
       <div class="sidebar">
         <div class="app-brand">
           <svg viewBox="0 0 512 512">
-            <path
-              d="M256 32C132.3 32 32 132.3 32 256s100.3 224 224 224 224-100.3 224-224S379.7 32 256 32zm115.8 244.6c-13.2 13.2-34.5 13.2-47.7 0-13.2-13.2-13.2-34.5 0-47.7 13.2-13.2 34.5-13.2 47.7 0 13.2 13.2 13.2 34.5 0 47.7zm-183.6 0c-13.2 13.2-34.5 13.2-47.7 0-13.2-13.2-13.2-34.5 0-47.7 13.2-13.2 34.5-13.2 47.7 0 13.2 13.2 13.2 34.5 0 47.7zM256 400c-53 0-96-43-96-96h192c0 53-43 96-96 96z"
-            />
+            <path d="M256 32C132.3 32 32 132.3 32 256s100.3 224 224 224 224-100.3 224-224S379.7 32 256 32zm115.8 244.6c-13.2 13.2-34.5 13.2-47.7 0-13.2-13.2-13.2-34.5 0-47.7 13.2-13.2 34.5-13.2 47.7 0 13.2 13.2 13.2 34.5 0 47.7zm-183.6 0c-13.2 13.2-34.5 13.2-47.7 0-13.2-13.2-13.2-34.5 0-47.7 13.2-13.2 34.5-13.2 47.7 0 13.2 13.2 13.2 34.5 0 47.7zM256 400c-53 0-96-43-96-96h192c0 53-43 96-96 96z"/>
           </svg>
           สำนักโจ๊กหมูพารวย
         </div>
-        <div class="app-desc">
-          สลับเลขสุ่มดั้งเดิม V3 เข้าสู่แผ่นปฏิทินจีนโบราณที่น่าเชื่อถือขั้นสุด
-        </div>
+        <div class="app-desc">สลับเลขสุ่มดั้งเดิม V3 เข้าสู่แผ่นปฏิทินจีนโบราณที่น่าเชื่อถือขั้นสุด</div>
 
         <div class="control-group">
           <label>สกินของกระดาษปฏิทิน</label>
@@ -986,11 +791,7 @@
 
         <div class="control-group">
           <label>ประเภทหวย / แนวทาง</label>
-          <select
-            id="lotteryType"
-            class="form-control"
-            onchange="updateLotteryTitle()"
-          >
+          <select id="lotteryType" class="form-control" onchange="updateLotteryTitle()">
             <optgroup label="🇹🇭 หวยไทย">
               <option value="thai_gov">หวยรัฐบาลไทย</option>
             </optgroup>
@@ -1058,21 +859,12 @@
 
         <div class="control-group">
           <label>วันที่งวด (ระบบจะคำนวณข้างขึ้นแรมให้อัตโนมัติ)</label>
-          <input
-            type="date"
-            id="dateInput"
-            class="form-control"
-            onchange="calculateDatesAndRender()"
-          />
+          <input type="date" id="dateInput" class="form-control" onchange="calculateDatesAndRender()" />
         </div>
 
         <div class="control-group">
           <label>ระดับมงคล / ความมั่นใจงวดนี้</label>
-          <select
-            id="starsRating"
-            class="form-control"
-            onchange="updateStarsPreview()"
-          >
+          <select id="starsRating" class="form-control" onchange="updateStarsPreview()">
             <option value="⭐⭐⭐⭐⭐">5 ดาวมหาเฮง (ดีเลิศ)</option>
             <option value="⭐⭐⭐⭐">4 ดาวมหาลาภ (ดีมาก)</option>
             <option value="⭐⭐⭐">3 ดาวนำโชค (ปานกลาง)</option>
@@ -1080,287 +872,83 @@
         </div>
 
         <div class="control-group">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              margin-bottom: 4px;
-            "
-          >
-            <label style="margin: 0">ชุดตัวเลขแนวทางนำโชค</label>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;">
+            <label style="margin: 0;">ชุดตัวเลขแนวทางนำโชค</label>
             <button class="btn-randomize" onclick="randomizeAllNumbers()">
               🎲 สุ่มเลขชุดใหม่
             </button>
           </div>
-
+          
           <div class="numbers-panel">
             <div class="panel-section-title">เลขเด่น (2 ตัวหลัก)</div>
             <div class="inline-inputs">
               <div class="number-sub-box">
                 <label>เด่นหลัก</label>
-                <input
-                  type="text"
-                  id="numDen1"
-                  maxlength="1"
-                  value="5"
-                  oninput="syncInputsToCanvas()"
-                />
+                <input type="text" id="numDen1" maxlength="1" value="5" oninput="syncInputsToCanvas()" />
               </div>
               <div class="number-sub-box">
                 <label>เด่นรอง</label>
-                <input
-                  type="text"
-                  id="numDen2"
-                  maxlength="1"
-                  value="9"
-                  oninput="syncInputsToCanvas()"
-                />
+                <input type="text" id="numDen2" maxlength="1" value="9" oninput="syncInputsToCanvas()" />
               </div>
             </div>
 
             <div class="panel-section-title">เลขตารางมงคล 5 ทิศทาง</div>
-            <div
-              style="
-                display: grid;
-                grid-template-columns: repeat(5, 1fr);
-                gap: 6px;
-              "
-            >
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;">
               <div class="number-sub-box">
                 <label>บน</label>
-                <input
-                  type="text"
-                  id="gridTop"
-                  maxlength="1"
-                  value="3"
-                  oninput="syncInputsToCanvas()"
-                />
+                <input type="text" id="gridTop" maxlength="1" value="3" oninput="syncInputsToCanvas()" />
               </div>
               <div class="number-sub-box">
                 <label>ซ้าย</label>
-                <input
-                  type="text"
-                  id="gridLeft"
-                  maxlength="1"
-                  value="0"
-                  oninput="syncInputsToCanvas()"
-                />
+                <input type="text" id="gridLeft" maxlength="1" value="0" oninput="syncInputsToCanvas()" />
               </div>
               <div class="number-sub-box">
-                <label style="color: #f87171; font-weight: bold">กลาง</label>
-                <input
-                  type="text"
-                  id="gridCenter"
-                  maxlength="1"
-                  value="5"
-                  oninput="syncInputsToCanvas()"
-                />
+                <label style="color:#f87171; font-weight:bold;">กลาง</label>
+                <input type="text" id="gridCenter" maxlength="1" value="5" oninput="syncInputsToCanvas()" />
               </div>
               <div class="number-sub-box">
                 <label>ขวา</label>
-                <input
-                  type="text"
-                  id="gridRight"
-                  maxlength="1"
-                  value="7"
-                  oninput="syncInputsToCanvas()"
-                />
+                <input type="text" id="gridRight" maxlength="1" value="7" oninput="syncInputsToCanvas()" />
               </div>
               <div class="number-sub-box">
                 <label>ล่าง</label>
-                <input
-                  type="text"
-                  id="gridBottom"
-                  maxlength="1"
-                  value="6"
-                  oninput="syncInputsToCanvas()"
-                />
+                <input type="text" id="gridBottom" maxlength="1" value="6" oninput="syncInputsToCanvas()" />
               </div>
             </div>
 
             <div class="panel-section-title">วิ่ง / รูด</div>
             <div class="number-sub-box">
-              <input
-                type="text"
-                id="numRun"
-                value="5 - 9"
-                oninput="syncInputsToCanvas()"
-              />
+              <input type="text" id="numRun" value="5 - 9" oninput="syncInputsToCanvas()" />
             </div>
 
             <div class="panel-section-title">เลขสองตัว (8 ชุด)</div>
             <div class="grid-inputs-eight">
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="two1"
-                  maxlength="2"
-                  value="59"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="two2"
-                  maxlength="2"
-                  value="95"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="two3"
-                  maxlength="2"
-                  value="52"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="two4"
-                  maxlength="2"
-                  value="19"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="two5"
-                  maxlength="2"
-                  value="57"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="two6"
-                  maxlength="2"
-                  value="93"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="two7"
-                  maxlength="2"
-                  value="50"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="two8"
-                  maxlength="2"
-                  value="89"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
+              <div class="number-sub-box"><input type="text" id="two1" maxlength="2" value="59" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="two2" maxlength="2" value="95" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="two3" maxlength="2" value="52" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="two4" maxlength="2" value="19" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="two5" maxlength="2" value="57" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="two6" maxlength="2" value="93" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="two7" maxlength="2" value="50" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="two8" maxlength="2" value="89" oninput="syncInputsToCanvas()" /></div>
             </div>
 
             <div class="panel-section-title">เลขเบิ้ล (2 ชุด)</div>
             <div class="inline-inputs">
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="double1"
-                  maxlength="2"
-                  value="55"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="double2"
-                  maxlength="2"
-                  value="99"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
+              <div class="number-sub-box"><input type="text" id="double1" maxlength="2" value="55" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="double2" maxlength="2" value="99" oninput="syncInputsToCanvas()" /></div>
             </div>
 
             <div class="panel-section-title">เลขสามตัว (8 ชุด)</div>
             <div class="grid-inputs-eight">
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="three1"
-                  maxlength="3"
-                  value="592"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="three2"
-                  maxlength="3"
-                  value="159"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="three3"
-                  maxlength="3"
-                  value="905"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="three4"
-                  maxlength="3"
-                  value="549"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="three5"
-                  maxlength="3"
-                  value="859"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="three6"
-                  maxlength="3"
-                  value="957"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="three7"
-                  maxlength="3"
-                  value="539"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
-              <div class="number-sub-box">
-                <input
-                  type="text"
-                  id="three8"
-                  maxlength="3"
-                  value="659"
-                  oninput="syncInputsToCanvas()"
-                />
-              </div>
+              <div class="number-sub-box"><input type="text" id="three1" maxlength="3" value="592" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="three2" maxlength="3" value="159" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="three3" maxlength="3" value="905" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="three4" maxlength="3" value="549" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="three5" maxlength="3" value="859" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="three6" maxlength="3" value="957" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="three7" maxlength="3" value="539" oninput="syncInputsToCanvas()" /></div>
+              <div class="number-sub-box"><input type="text" id="three8" maxlength="3" value="659" oninput="syncInputsToCanvas()" /></div>
             </div>
           </div>
         </div>
@@ -1376,43 +964,21 @@
           <div class="preview-container" id="previewContainer">
             <div id="loader" class="loader-overlay">
               <div class="spinner"></div>
-              <p
-                style="
-                  font-weight: 600;
-                  font-size: 1.1rem;
-                  letter-spacing: 0.5px;
-                "
-              >
+              <p style="font-weight: 600; font-size:1.1rem; letter-spacing: 0.5px">
                 กำลังจำลองภาพพิมพ์บล็อกไม้ปฏิทินย้อนยุค...
               </p>
             </div>
             <div id="placeholder" class="empty-placeholder">
               <span>🏮</span>
-              <p style="font-weight: bold">ปฏิทินจีนย้อนยุคสำนักโจ๊กหมู</p>
-              <p style="font-size: 0.85rem; margin-top: 5px; color: #6b7280">
-                ปรับแต่งหรือสุ่มเลขแนวทาง แล้วกด "สลักภาพ" เพื่อดูพรีวิว
-              </p>
+              <p style="font-weight:bold;">ปฏิทินจีนย้อนยุคสำนักโจ๊กหมู</p>
+              <p style="font-size:0.85rem; margin-top:5px; color:#6b7280;">ปรับแต่งหรือสุ่มเลขแนวทาง แล้วกด "สลักภาพ" เพื่อดูพรีวิว</p>
             </div>
-            <img
-              id="previewImg"
-              class="preview-image"
-              alt="Lottery Premium Preview"
-            />
+            <img id="previewImg" class="preview-image" alt="Lottery Premium Preview" />
           </div>
           <div class="action-bar" id="actionBar">
-            <button class="btn-action save" onclick="saveImage()">
-              💾 บันทึกรูปภาพ
-            </button>
-            <button
-              class="btn-action share"
-              id="shareBtn"
-              onclick="shareImage()"
-            >
-              📤 แชร์ด่วน
-            </button>
-            <button class="btn-action copy" onclick="copyCaption()">
-              📋 คัดลอกแคปชั่น
-            </button>
+            <button class="btn-action save" onclick="saveImage()">💾 บันทึกรูปภาพ</button>
+            <button class="btn-action share" id="shareBtn" onclick="shareImage()">📤 แชร์ด่วน</button>
+            <button class="btn-action copy" onclick="copyCaption()">📋 คัดลอกแคปชั่น</button>
           </div>
         </div>
       </div>
@@ -1430,20 +996,8 @@
           <div class="tear-bolt"></div>
         </div>
 
-        <img
-          id="rFlagBg"
-          class="cal-flag-bg"
-          src=""
-          alt="flag-bg"
-          crossorigin="anonymous"
-        />
-        <img
-          id="rFlagReal"
-          class="cal-flag-real"
-          src=""
-          alt="flag-real"
-          crossorigin="anonymous"
-        />
+        <img id="rFlagBg" class="cal-flag-bg" src="" alt="flag-bg" crossorigin="anonymous" />
+        <img id="rFlagReal" class="cal-flag-real" src="" alt="flag-real" crossorigin="anonymous" />
 
         <div class="cal-border-outer"></div>
         <div class="cal-border-inner"></div>
@@ -1457,23 +1011,17 @@
         <!-- HEADER -->
         <div class="cal-header">
           <div class="cal-header-left">
-            <div class="cal-thai-month" id="rThaiMonthYear">
-              5 มิถุนายน 2569
-            </div>
-            <div class="cal-thai-lunar" id="rThaiLunarHeader">
-              แรม ๕ ค่ำ เดือน ๗ ปีมะเมีย
-            </div>
+            <!-- ✅ แสดงชื่อประเภทหวย แทนวันที่ (วันที่ย้ายไปขวา) -->
+            <div class="cal-lottery-type" id="rLotteryTypeName">แนวทางลาวพัฒนา</div>
+            <div class="cal-thai-lunar" id="rThaiLunarHeader">แรม ๕ ค่ำ เดือน ๗ ปีมะเมีย</div>
           </div>
           <div class="cal-header-right">
             <div class="cal-eng-date">
+              <!-- ✅ แสดงวันที่ภาษาไทยแทนชื่อหวย -->
+              <div class="cal-thai-month" id="rThaiMonthYear">5 มิถุนายน 2569</div>
               <div class="cal-eng-month" id="rEngMonthYear">JUNE 2026</div>
-              <div class="cal-solar-label" id="rLotteryTypeName">
-                แนวทางลาวพัฒนา
-              </div>
             </div>
-            <div class="cal-vertical-chinese" id="rChiSolarLabel">
-              陽曆六月五日
-            </div>
+            <div class="cal-vertical-chinese" id="rChiSolarLabel">陽曆六月五日</div>
           </div>
         </div>
 
@@ -1524,9 +1072,7 @@
 
         <!-- BOTTOM ROW: สามตัวตรง ✅ แก้ไขแล้ว -->
         <div class="cal-bottom-row">
-          <div class="column-title-badge" style="margin-bottom: 8px">
-            สามตัวตรง
-          </div>
+          <div class="column-title-badge" style="margin-bottom: 8px;">สามตัวตรง</div>
           <div class="grid-three-digits" id="rGridThreeDigits"></div>
         </div>
 
@@ -1534,9 +1080,7 @@
         <div class="cb-footer">
           <div class="cb-brand-pill">
             <svg viewBox="0 0 1200 1227">
-              <path
-                d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.163 519.284ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.828Z"
-              />
+              <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.163 519.284ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.828Z" />
             </svg>
             <div class="cb-brand">โจ๊กหมู @joakmuu</div>
           </div>
@@ -1553,17 +1097,13 @@
         <div class="cal-footer">
           <div class="cal-footer-left">
             <svg class="farming-icon" viewBox="0 0 64 64">
-              <path
-                d="M32 4C16.5 4 4 16.5 4 32s12.5 28 28 28 28-12.5 28-28S47.5 4 32 4zm0 6c12.1 0 22 9.9 22 22 0 3.8-1 7.3-2.7 10.4l-3.3-3.3c.7-2.1.7-4.4 0-6.5l3.8-3.8c.8-.8.8-2 0-2.8s-2-.8-2.8 0l-3.8 3.8c-2.1-.7-4.4-.7-6.5 0l-3.3-3.3c3.1-1.7 6.6-2.7 10.4-2.7 1.1 0 2-.9 2-2s-.9-2-2-2zm-12.4 8.7l3.3 3.3c-.7 2.1-.7 4.4 0 6.5l-3.8 3.8c-.8.8-.8 2 0 2.8.4.4.9.6 1.4.6s1-.2 1.4-.6l3.8-3.8c2.1.7 4.4.7 6.5 0l3.3 3.3c-3.1 1.7-6.6 2.7-10.4 2.7-3.8 0-7.3-1-10.4-2.7 1.1 0 2-.9 2-2 0-3.8 1-7.3 2.7-10.4z"
-              />
+              <path d="M32 4C16.5 4 4 16.5 4 32s12.5 28 28 28 28-12.5 28-28S47.5 4 32 4zm0 6c12.1 0 22 9.9 22 22 0 3.8-1 7.3-2.7 10.4l-3.3-3.3c.7-2.1.7-4.4 0-6.5l3.8-3.8c.8-.8.8-2 0-2.8s-2-.8-2.8 0l-3.8 3.8c-2.1-.7-4.4-.7-6.5 0l-3.3-3.3c3.1-1.7 6.6-2.7 10.4-2.7 1.1 0 2-.9 2-2s-.9-2-2-2zm-12.4 8.7l3.3 3.3c-.7 2.1-.7 4.4 0 6.5l-3.8 3.8c-.8.8-.8 2 0 2.8.4.4.9.6 1.4.6s1-.2 1.4-.6l3.8-3.8c2.1.7 4.4.7 6.5 0l3.3 3.3c-3.1 1.7-6.6 2.7-10.4 2.7-3.8 0-7.3-1-10.4-2.7 1.1 0 2-.9 2-2 0-3.8 1-7.3 2.7-10.4z"/>
             </svg>
             <div class="cal-footer-lunar-label">農曆</div>
           </div>
-          <div class="cal-footer-center" id="rChiLunarDate">
-            丙午年 四月小 二十日
-          </div>
+          <div class="cal-footer-center" id="rChiLunarDate">丙午年 四月小 二十日</div>
           <div class="cal-footer-right" id="rThaiSummary">
-            ปีมะเมีย เดือน 4 จีน<br />แรม ๕ ค่ำ เดือน ๗ ไทย
+            ปีมะเมีย เดือน 4 จีน<br/>แรม ๕ ค่ำ เดือน ๗ ไทย
           </div>
         </div>
       </div>
@@ -1574,137 +1114,55 @@
          ========================================================= -->
     <script>
       const THAI_MONTHS = [
-        'มกราคม',
-        'กุมภาพันธ์',
-        'มีนาคม',
-        'เมษายน',
-        'พฤษภาคม',
-        'มิถุนายน',
-        'กรกฎาคม',
-        'สิงหาคม',
-        'กันยายน',
-        'ตุลาคม',
-        'พฤศจิกายน',
-        'ธันวาคม',
-      ]
+        'มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน',
+        'กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'
+      ];
       const ENG_MONTHS = [
-        'JANUARY',
-        'FEBRUARY',
-        'MARCH',
-        'APRIL',
-        'MAY',
-        'JUNE',
-        'JULY',
-        'AUGUST',
-        'SEPTEMBER',
-        'OCTOBER',
-        'NOVEMBER',
-        'DECEMBER',
-      ]
-      const DAYS_TH = [
-        'วันอาทิตย์',
-        'วันจันทร์',
-        'วันอังคาร',
-        'วันพุธ',
-        'วันพฤหัสบดี',
-        'วันศุกร์',
-        'วันเสาร์',
-      ]
-      const DAYS_EN = [
-        'SUNDAY',
-        'MONDAY',
-        'TUESDAY',
-        'WEDNESDAY',
-        'THURSDAY',
-        'FRIDAY',
-        'SATURDAY',
-      ]
-      const DAYS_CH = [
-        '星期日',
-        '星期一',
-        '星期二',
-        '星期三',
-        '星期四',
-        '星期五',
-        '星期六',
-      ]
-      const ZODIACS_THAI = [
-        'มะเมีย',
-        'มะแม',
-        'วอก',
-        'ระกา',
-        'จอ',
-        'กุน',
-        'ชวด',
-        'ฉลู',
-        'ขาล',
-        'เถาะ',
-        'มะโรง',
-        'มะเส็ง',
-      ]
-      const CHI_YEARS = [
-        '丙午年',
-        '丁未年',
-        '戊申年',
-        '己酉年',
-        '庚戌年',
-        '辛亥年',
-        '壬子年',
-        '癸丑年',
-        '甲寅年',
-        '乙卯年',
-        '丙辰年',
-        '丁巳年',
-      ]
-      const CHI_NUMS = [
-        '',
-        '一',
-        '二',
-        '三',
-        '四',
-        '五',
-        '六',
-        '七',
-        '八',
-        '九',
-        '十',
-      ]
+        'JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE',
+        'JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'
+      ];
+      const DAYS_TH = ['วันอาทิตย์','วันจันทร์','วันอังคาร','วันพุธ','วันพฤหัสบดี','วันศุกร์','วันเสาร์'];
+      const DAYS_EN = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
+      const DAYS_CH = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+      const ZODIACS_THAI = ["มะเมีย","มะแม","วอก","ระกา","จอ","กุน","ชวด","ฉลู","ขาล","เถาะ","มะโรง","มะเส็ง"];
+      const CHI_YEARS = ["丙午年","丁未年","戊申年","己酉年","庚戌年","辛亥年","壬子年","癸丑年","甲寅年","乙卯年","丙辰年","丁巳年"];
+      const CHI_NUMS = ["","一","二","三","四","五","六","七","八","九","十"];
 
       const PREMIUM_CAPTIONS = [
-        'เปิดดวงมหาเศรษฐีงวดนี้! แจกเลขเด็ดปฏิทินจีนโบราณ [NAME] คัดสรรเลขขลังเน้น ๆ ด้วยบารมีแห่งดวงดาว ขอให้รวยเงินล้าน สาธุ 🙏✨',
-        'มาตามนัดครับพี่น้อง! แนวทางปฏิทินปั๊มแดงเจ้าเดิม [NAME] งวดนี้เปิดตารางกากบาทมงคล ขออัญเชิญโชคลาภสถิตแก่ผู้แชร์โพสต์นี้ รวย ๆ เฮง ๆ ครับ 🔮💸',
-        'ของดีไม่ต้องพูดเยอะ! สลักเลขนำโชคปฏิทินโบราณ [NAME] ลุ้นรับโชคใหญ่ปลดหนี้สิน เงินไหลกองทองไหลมาเทมาอย่างไม่ขาดสาย สาธุ ๆ 🙏💰',
-        'ดวงฟ้าเปิด ทางสว่างมาแล้ว! แนวทางมงคลสุดแม่นยำ [NAME] งวดนี้ขอให้เป็นวันประวัติศาสตร์แห่งการรับทรัพย์กระเป๋าตุงกันถ้วนหน้า 🏮🎰',
-        'ใครรออยู่เซฟเก็บไว้ด่วน! แนวทางมงคลจากแผ่นปฏิทินฉีกโบราณ [NAME] โดยสำนักโจ๊กหมูพารวย ขอให้บารมีปฏิทินนำพาสู่ความมั่งคั่งมหาศาล 🐷✨',
-        'แจกฟรีสะพานบุญนำโชค! ปฏิทินจีนโบราณนำทางรวย [NAME] วันดีวันมงคล ขอให้หยิบจับสิ่งใดเป็นเงินเป็นทอง ทะลุเป้าทุกรางวัลถ้วนหน้า 🙏🥇',
-        'คัมภีร์เศรษฐีส่งตรงถึงหน้าจอ! แนวทางเลขมงคลปฏิทิน [NAME] ดวงใครกำลังเด่น ดวงใครกำลังมา ขอให้ใบนี้พลิกชีวิตเป็นเศรษฐีข้ามคืนด้วยเทอญ สาธุ 🏮💸',
-        'เลขเด่นท้ายกระดาษปฏิทินสุดขลัง [NAME] สำนักโจ๊กหมูจัดให้เน้น ๆ ขออวยพรให้ทุกท่านรับโชคก้อนโต สมปรารถนาทุกประการครับผม 🐷🎯',
-        'งวดนี้ขอให้เฮง งวดนี้ขอให้รวย! เปิดแนวทางโบราณตารางเลขเด็ด [NAME] ตามไว้ไม่เสียหาย วันนี้ขอให้ดวงเฮงส่องประกายมีแต่รอยยิ้มครับ 🌟🍀',
-        'ตราปั๊มแดงรับรองความเฮง! ปฏิทินจันทรคติไทย-จีนสุดพรีเมียม [NAME] ขอให้เป็นเลขพลิกชีวิต พลันความจนให้จางหาย มีแต่เงินล้านเข้ามาแทนที่ สาธุ 🙏💎',
-      ]
+        "เปิดดวงมหาเศรษฐีงวดนี้! แจกเลขเด็ดปฏิทินจีนโบราณ [NAME] คัดสรรเลขขลังเน้น ๆ ด้วยบารมีแห่งดวงดาว ขอให้รวยเงินล้าน สาธุ 🙏✨",
+        "มาตามนัดครับพี่น้อง! แนวทางปฏิทินปั๊มแดงเจ้าเดิม [NAME] งวดนี้เปิดตารางกากบาทมงคล ขออัญเชิญโชคลาภสถิตแก่ผู้แชร์โพสต์นี้ รวย ๆ เฮง ๆ ครับ 🔮💸",
+        "ของดีไม่ต้องพูดเยอะ! สลักเลขนำโชคปฏิทินโบราณ [NAME] ลุ้นรับโชคใหญ่ปลดหนี้สิน เงินไหลกองทองไหลมาเทมาอย่างไม่ขาดสาย สาธุ ๆ 🙏💰",
+        "ดวงฟ้าเปิด ทางสว่างมาแล้ว! แนวทางมงคลสุดแม่นยำ [NAME] งวดนี้ขอให้เป็นวันประวัติศาสตร์แห่งการรับทรัพย์กระเป๋าตุงกันถ้วนหน้า 🏮🎰",
+        "ใครรออยู่เซฟเก็บไว้ด่วน! แนวทางมงคลจากแผ่นปฏิทินฉีกโบราณ [NAME] โดยสำนักโจ๊กหมูพารวย ขอให้บารมีปฏิทินนำพาสู่ความมั่งคั่งมหาศาล 🐷✨",
+        "แจกฟรีสะพานบุญนำโชค! ปฏิทินจีนโบราณนำทางรวย [NAME] วันดีวันมงคล ขอให้หยิบจับสิ่งใดเป็นเงินเป็นทอง ทะลุเป้าทุกรางวัลถ้วนหน้า 🙏🥇",
+        "คัมภีร์เศรษฐีส่งตรงถึงหน้าจอ! แนวทางเลขมงคลปฏิทิน [NAME] ดวงใครกำลังเด่น ดวงใครกำลังมา ขอให้ใบนี้พลิกชีวิตเป็นเศรษฐีข้ามคืนด้วยเทอญ สาธุ 🏮💸",
+        "เลขเด่นท้ายกระดาษปฏิทินสุดขลัง [NAME] สำนักโจ๊กหมูจัดให้เน้น ๆ ขออวยพรให้ทุกท่านรับโชคก้อนโต สมปรารถนาทุกประการครับผม 🐷🎯",
+        "งวดนี้ขอให้เฮง งวดนี้ขอให้รวย! เปิดแนวทางโบราณตารางเลขเด็ด [NAME] ตามไว้ไม่เสียหาย วันนี้ขอให้ดวงเฮงส่องประกายมีแต่รอยยิ้มครับ 🌟🍀",
+        "ตราปั๊มแดงรับรองความเฮง! ปฏิทินจันทรคติไทย-จีนสุดพรีเมียม [NAME] ขอให้เป็นเลขพลิกชีวิต พลันความจนให้จางหาย มีแต่เงินล้านเข้ามาแทนที่ สาธุ 🙏💎"
+      ];
 
-      let currentBase64Image = null
-      let calculatedLunarInfo = null
-      let availableCaptions = [...PREMIUM_CAPTIONS]
+      let currentBase64Image = null;
+      let calculatedLunarInfo = null;
+      let availableCaptions = [...PREMIUM_CAPTIONS];
 
       function toThaiDigits(num) {
-        const thaiDigits = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙']
-        return num.toString().replace(/[0-9]/g, ch => thaiDigits[ch])
+        const thaiDigits = ['๐','๑','๒','๓','๔','๕','๖','๗','๘','๙'];
+        return num.toString().replace(/[0-9]/g, ch => thaiDigits[ch]);
       }
 
       function formatChineseMonth(month) {
-        if (month === 1) return '正月'
-        if (month === 11) return '十一月'
-        if (month === 12) return '十二月'
-        return CHI_NUMS[month] + '月'
+        if (month === 1) return "正月";
+        if (month === 11) return "十一月";
+        if (month === 12) return "十二月";
+        return CHI_NUMS[month] + "月";
       }
 
       function formatChineseDay(day) {
-        if (day <= 10) return '初' + CHI_NUMS[day]
-        if (day < 20) return '十' + CHI_NUMS[day - 10]
-        if (day === 20) return '二十'
-        if (day < 30) return '廿' + CHI_NUMS[day - 20]
-        return '三十'
+        if (day <= 10) return "初" + CHI_NUMS[day];
+        if (day < 20) return "十" + CHI_NUMS[day - 10];
+        if (day === 20) return "二十";
+        if (day < 30) return "廿" + CHI_NUMS[day - 20];
+        return "三十";
       }
 
       const LOTTERY_DATA = {
@@ -1758,62 +1216,61 @@
         yeekee_normal: { name: 'ยี่กีธรรมดา', flag: 'th' },
         yeekee_vip: { name: 'ยี่กี VIP', flag: 'th' },
         yeekee_star: { name: 'ยี่กี Star', flag: 'th' },
-      }
+      };
 
       function getFlagUrl(code) {
-        return `https://flagcdn.com/w320/${code}.png`
+        return `https://flagcdn.com/w320/${code}.png`;
       }
 
       function awaitImageLoad(imgElem) {
         return new Promise(resolve => {
-          if (imgElem.complete) return resolve()
-          imgElem.onload = resolve
-          imgElem.onerror = resolve
-        })
+          if (imgElem.complete) return resolve();
+          imgElem.onload = resolve;
+          imgElem.onerror = resolve;
+        });
       }
 
       function calculateLunarDate(targetDate) {
-        const refDate = new Date(2026, 5, 5)
-        const diffTime = targetDate.getTime() - refDate.getTime()
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-        const synodic = 29.53059
+        const refDate = new Date(2026, 5, 5);
+        const diffTime = targetDate.getTime() - refDate.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const synodic = 29.53059;
 
-        let lunarCycleDay = (20 + diffDays) % synodic
-        if (lunarCycleDay < 0) lunarCycleDay += synodic
+        let lunarCycleDay = (20 + diffDays) % synodic;
+        if (lunarCycleDay < 0) lunarCycleDay += synodic;
 
-        let phase = '',
-          count = 0
+        let phase = "", count = 0;
         if (lunarCycleDay < 14.765) {
-          phase = 'ขึ้น'
-          count = Math.floor(lunarCycleDay) + 1
+          phase = "ขึ้น";
+          count = Math.floor(lunarCycleDay) + 1;
         } else {
-          phase = 'แรม'
-          count = Math.floor(lunarCycleDay - 14.765) + 1
-          if (count > 15) count = 15
-          if (count <= 0) count = 1
+          phase = "แรม";
+          count = Math.floor(lunarCycleDay - 14.765) + 1;
+          if (count > 15) count = 15;
+          if (count <= 0) count = 1;
         }
 
-        const monthsDiff = diffDays / synodic
-        let rawMonth = 7 + monthsDiff
-        let lunarMonth = Math.round(rawMonth) % 12
-        if (lunarMonth <= 0) lunarMonth += 12
+        const monthsDiff = diffDays / synodic;
+        let rawMonth = 7 + monthsDiff;
+        let lunarMonth = Math.round(rawMonth) % 12;
+        if (lunarMonth <= 0) lunarMonth += 12;
 
-        const yearBE = targetDate.getFullYear() + 543
-        const zodiacIndex = (yearBE - 2569 + 12000) % 12
-        const zodiac = ZODIACS_THAI[zodiacIndex]
+        const yearBE = targetDate.getFullYear() + 543;
+        const zodiacIndex = (yearBE - 2569 + 12000) % 12;
+        const zodiac = ZODIACS_THAI[zodiacIndex];
 
-        let chiDayRaw = (20 + diffDays) % 29.53
-        if (chiDayRaw < 0) chiDayRaw += 29.53
-        let chiDay = Math.floor(chiDayRaw) + 1
-        if (chiDay > 30) chiDay = 30
+        let chiDayRaw = (20 + diffDays) % 29.53;
+        if (chiDayRaw < 0) chiDayRaw += 29.53;
+        let chiDay = Math.floor(chiDayRaw) + 1;
+        if (chiDay > 30) chiDay = 30;
 
-        let chiMonthRaw = 4 + monthsDiff
-        let chiMonth = Math.round(chiMonthRaw) % 12
-        if (chiMonth <= 0) chiMonth += 12
+        let chiMonthRaw = 4 + monthsDiff;
+        let chiMonth = Math.round(chiMonthRaw) % 12;
+        if (chiMonth <= 0) chiMonth += 12;
 
-        const chiYearName = CHI_YEARS[zodiacIndex]
-        let chiMonthStr = formatChineseMonth(chiMonth)
-        let chiDayStr = formatChineseDay(chiDay)
+        const chiYearName = CHI_YEARS[zodiacIndex];
+        let chiMonthStr = formatChineseMonth(chiMonth);
+        let chiDayStr = formatChineseDay(chiDay);
 
         return {
           day: targetDate.getDate(),
@@ -1828,351 +1285,288 @@
           chiMonthStr,
           chiDayStr,
           chiMonthNum: chiMonth,
-          chiDayNum: chiDay,
-        }
+          chiDayNum: chiDay
+        };
       }
 
       function updateSkin() {
-        const skin = document.getElementById('paperSkin').value
+        const skin = document.getElementById('paperSkin').value;
         if (skin === 'cream') {
-          document.documentElement.style.setProperty('--paper-color', '#f7f3e9')
-          document.documentElement.style.setProperty('--paper-ink', '#111827')
-          document.documentElement.style.setProperty('--paper-red', '#c22121')
-          document.documentElement.style.setProperty(
-            '--paper-border',
-            'rgba(194, 33, 33, 0.25)'
-          )
+          document.documentElement.style.setProperty('--paper-color', '#f7f3e9');
+          document.documentElement.style.setProperty('--paper-ink', '#111827');
+          document.documentElement.style.setProperty('--paper-red', '#c22121');
+          document.documentElement.style.setProperty('--paper-border', 'rgba(194, 33, 33, 0.25)');
         } else if (skin === 'red') {
-          document.documentElement.style.setProperty('--paper-color', '#991b1b')
-          document.documentElement.style.setProperty('--paper-ink', '#fef08a')
-          document.documentElement.style.setProperty('--paper-red', '#ffffff')
-          document.documentElement.style.setProperty(
-            '--paper-border',
-            'rgba(255, 255, 255, 0.35)'
-          )
+          document.documentElement.style.setProperty('--paper-color', '#991b1b');
+          document.documentElement.style.setProperty('--paper-ink', '#fef08a');
+          document.documentElement.style.setProperty('--paper-red', '#ffffff');
+          document.documentElement.style.setProperty('--paper-border', 'rgba(255, 255, 255, 0.35)');
         } else if (skin === 'white') {
-          document.documentElement.style.setProperty('--paper-color', '#ffffff')
-          document.documentElement.style.setProperty('--paper-ink', '#000000')
-          document.documentElement.style.setProperty('--paper-red', '#e11d48')
-          document.documentElement.style.setProperty(
-            '--paper-border',
-            'rgba(225, 29, 72, 0.25)'
-          )
+          document.documentElement.style.setProperty('--paper-color', '#ffffff');
+          document.documentElement.style.setProperty('--paper-ink', '#000000');
+          document.documentElement.style.setProperty('--paper-red', '#e11d48');
+          document.documentElement.style.setProperty('--paper-border', 'rgba(225, 29, 72, 0.25)');
         }
       }
 
       function updateLotteryTitle() {
-        const selectElem = document.getElementById('lotteryType')
-        const data = LOTTERY_DATA[selectElem.value] || {
-          name: 'แนวทาง',
-          flag: 'th',
-        }
-        document.getElementById('rLotteryTypeName').innerText =
-          'แนวทาง' + data.name
-        const flagReal = document.getElementById('rFlagReal')
-        const flagBg = document.getElementById('rFlagBg')
-        flagReal.src = getFlagUrl(data.flag)
-        flagBg.src = getFlagUrl(data.flag)
-        randomizeAllNumbers()
+        const selectElem = document.getElementById('lotteryType');
+        const data = LOTTERY_DATA[selectElem.value] || { name: 'แนวทาง', flag: 'th' };
+        document.getElementById('rLotteryTypeName').innerText = "แนวทาง" + data.name;
+        const flagReal = document.getElementById('rFlagReal');
+        const flagBg = document.getElementById('rFlagBg');
+        flagReal.src = getFlagUrl(data.flag);
+        flagBg.src = getFlagUrl(data.flag);
+        randomizeAllNumbers();
       }
 
       function updateStarsPreview() {
-        document.getElementById('previewStars').innerText =
-          document.getElementById('starsRating').value
+        document.getElementById('previewStars').innerText = document.getElementById('starsRating').value;
       }
 
       function randomizeAllNumbers() {
         const secureRandom = (min, max) => {
-          const arr = new Uint32Array(1)
-          window.crypto.getRandomValues(arr)
-          return Math.floor((arr[0] / (0xffffffff + 1)) * (max - min + 1)) + min
-        }
+          const arr = new Uint32Array(1);
+          window.crypto.getRandomValues(arr);
+          return Math.floor((arr[0] / (0xffffffff + 1)) * (max - min + 1)) + min;
+        };
 
         const getUniqueSets = (count, digits, forced = []) => {
-          const set = new Set(forced.map(n => String(n).padStart(digits, '0')))
-          const max = Math.pow(10, digits) - 1
-          const limit = Math.min(count, max + 1)
-          let limitTries = 0
+          const set = new Set(forced.map(n => String(n).padStart(digits, '0')));
+          const max = Math.pow(10, digits) - 1;
+          const limit = Math.min(count, max + 1);
+          let limitTries = 0;
           while (set.size < limit && limitTries++ < 9999) {
-            set.add(String(secureRandom(0, max)).padStart(digits, '0'))
+            set.add(String(secureRandom(0, max)).padStart(digits, '0'));
           }
-          return [...set]
-        }
+          return [...set];
+        };
 
-        let den1 = secureRandom(1, 9)
-        let den2
-        do {
-          den2 = secureRandom(1, 9)
-        } while (den1 === den2)
+        let den1 = secureRandom(1, 9);
+        let den2;
+        do { den2 = secureRandom(1, 9); } while (den1 === den2);
 
-        const runStr = `${den1} - ${den2}`
-        const db1 = `${den1}${den1}`
-        const db2 = `${den2}${den2}`
+        const runStr = `${den1} - ${den2}`;
+        const db1 = `${den1}${den1}`;
+        const db2 = `${den2}${den2}`;
 
         const forcedTwo = [
-          `${den1}${den2}`,
-          `${den2}${den1}`,
-          `${den1}${secureRandom(0, 9)}`,
-          `${secureRandom(0, 9)}${den2}`,
-        ]
-        const twoDigits = getUniqueSets(8, 2, forcedTwo)
+          `${den1}${den2}`, `${den2}${den1}`,
+          `${den1}${secureRandom(0, 9)}`, `${secureRandom(0, 9)}${den2}`
+        ];
+        const twoDigits = getUniqueSets(8, 2, forcedTwo);
 
-        const rVal = () => secureRandom(0, 9)
+        const rVal = () => secureRandom(0, 9);
         const forcedThree = [
-          `${den1}${den2}${rVal()}`,
-          `${rVal()}${den1}${den2}`,
-          `${den2}${rVal()}${den1}`,
-          `${den1}${rVal()}${den2}`,
-        ]
-        const threeDigits = getUniqueSets(8, 3, forcedThree)
+          `${den1}${den2}${rVal()}`, `${rVal()}${den1}${den2}`,
+          `${den2}${rVal()}${den1}`, `${den1}${rVal()}${den2}`
+        ];
+        const threeDigits = getUniqueSets(8, 3, forcedThree);
 
-        let pool = [den1, den2]
+        let pool = [den1, den2];
         for (let i = 1; i <= 8; i++) {
-          const val = twoDigits[i - 1] || ''
-          if (val.length === 2) {
-            pool.push(val[0], val[1])
-          }
+          const val = twoDigits[i - 1] || '';
+          if (val.length === 2) { pool.push(val[0], val[1]); }
         }
-        let uniqueDigits = [...new Set(pool)].filter(x => x >= '0' && x <= '9')
-        const fallback = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+        let uniqueDigits = [...new Set(pool)].filter(x => x >= '0' && x <= '9');
+        const fallback = ['1','2','3','4','5','6','7','8','9','0'];
         for (let f of fallback) {
-          if (uniqueDigits.length >= 5) break
-          if (!uniqueDigits.includes(f)) uniqueDigits.push(f)
+          if (uniqueDigits.length >= 5) break;
+          if (!uniqueDigits.includes(f)) uniqueDigits.push(f);
         }
 
-        document.getElementById('numDen1').value = den1
-        document.getElementById('numDen2').value = den2
-        document.getElementById('numRun').value = runStr
-        document.getElementById('gridTop').value = uniqueDigits[0]
-        document.getElementById('gridLeft').value = uniqueDigits[1]
-        document.getElementById('gridCenter').value = uniqueDigits[2]
-        document.getElementById('gridRight').value = uniqueDigits[3]
-        document.getElementById('gridBottom').value = uniqueDigits[4]
-        document.getElementById('double1').value = db1
-        document.getElementById('double2').value = db2
+        document.getElementById('numDen1').value = den1;
+        document.getElementById('numDen2').value = den2;
+        document.getElementById('numRun').value = runStr;
+        document.getElementById('gridTop').value = uniqueDigits[0];
+        document.getElementById('gridLeft').value = uniqueDigits[1];
+        document.getElementById('gridCenter').value = uniqueDigits[2];
+        document.getElementById('gridRight').value = uniqueDigits[3];
+        document.getElementById('gridBottom').value = uniqueDigits[4];
+        document.getElementById('double1').value = db1;
+        document.getElementById('double2').value = db2;
 
         for (let i = 1; i <= 8; i++) {
-          document.getElementById(`two${i}`).value = twoDigits[i - 1]
-          document.getElementById(`three${i}`).value = threeDigits[i - 1]
+          document.getElementById(`two${i}`).value = twoDigits[i - 1];
+          document.getElementById(`three${i}`).value = threeDigits[i - 1];
         }
 
-        syncInputsToCanvas()
+        syncInputsToCanvas();
       }
 
       function syncInputsToCanvas() {
-        const d1 = document.getElementById('numDen1').value || '0'
-        const d2 = document.getElementById('numDen2').value || '0'
+        const d1 = document.getElementById('numDen1').value || '0';
+        const d2 = document.getElementById('numDen2').value || '0';
 
-        document.getElementById('rDen1').innerText = d1
-        document.getElementById('rDen2').innerText = d2
-        document.getElementById('rRun').innerText =
-          document.getElementById('numRun').value || `${d1} - ${d2}`
-        document.getElementById('rGridTop').innerText =
-          document.getElementById('gridTop').value || '0'
-        document.getElementById('rGridLeft').innerText =
-          document.getElementById('gridLeft').value || '0'
-        document.getElementById('rGridCenter').innerText =
-          document.getElementById('gridCenter').value || '0'
-        document.getElementById('rGridRight').innerText =
-          document.getElementById('gridRight').value || '0'
-        document.getElementById('rGridBottom').innerText =
-          document.getElementById('gridBottom').value || '0'
+        document.getElementById('rDen1').innerText = d1;
+        document.getElementById('rDen2').innerText = d2;
+        document.getElementById('rRun').innerText = document.getElementById('numRun').value || `${d1} - ${d2}`;
+        document.getElementById('rGridTop').innerText = document.getElementById('gridTop').value || '0';
+        document.getElementById('rGridLeft').innerText = document.getElementById('gridLeft').value || '0';
+        document.getElementById('rGridCenter').innerText = document.getElementById('gridCenter').value || '0';
+        document.getElementById('rGridRight').innerText = document.getElementById('gridRight').value || '0';
+        document.getElementById('rGridBottom').innerText = document.getElementById('gridBottom').value || '0';
 
-        let twoHtml = ''
+        let twoHtml = '';
         for (let i = 1; i <= 8; i++) {
-          twoHtml += `<div class="two-digit-item">${document.getElementById(`two${i}`).value || '00'}</div>`
+          twoHtml += `<div class="two-digit-item">${document.getElementById(`two${i}`).value || '00'}</div>`;
         }
-        document.getElementById('rGridTwoDigits').innerHTML = twoHtml
+        document.getElementById('rGridTwoDigits').innerHTML = twoHtml;
 
         document.getElementById('rDoubleWrapper').innerHTML =
-          `<span>${document.getElementById('double1').value || '00'}</span> <span>${document.getElementById('double2').value || '11'}</span>`
+          `<span>${document.getElementById('double1').value || '00'}</span> <span>${document.getElementById('double2').value || '11'}</span>`;
 
-        let threeHtml = ''
+        let threeHtml = '';
         for (let i = 1; i <= 8; i++) {
-          threeHtml += `<div class="three-digit-item">${document.getElementById(`three${i}`).value || '000'}</div>`
+          threeHtml += `<div class="three-digit-item">${document.getElementById(`three${i}`).value || '000'}</div>`;
         }
-        document.getElementById('rGridThreeDigits').innerHTML = threeHtml
+        document.getElementById('rGridThreeDigits').innerHTML = threeHtml;
       }
 
       function calculateDatesAndRender() {
-        const dateVal = document.getElementById('dateInput').value
-        if (!dateVal) return
+        const dateVal = document.getElementById('dateInput').value;
+        if (!dateVal) return;
 
-        const targetDate = new Date(dateVal)
-        const info = calculateLunarDate(targetDate)
-        calculatedLunarInfo = info
+        const targetDate = new Date(dateVal);
+        const info = calculateLunarDate(targetDate);
+        calculatedLunarInfo = info;
 
-        const thaiLunarCount = toThaiDigits(info.thaiCount)
-        const thaiLunarMonth = toThaiDigits(info.thaiMonth)
+        const thaiLunarCount = toThaiDigits(info.thaiCount);
+        const thaiLunarMonth = toThaiDigits(info.thaiMonth);
 
-        document.getElementById('rThaiMonthYear').innerText =
-          `${info.day} ${info.monthNameTH} ${info.yearBE}`
-        document.getElementById('rThaiLunarHeader').innerText =
-          `${info.thaiPhase} ${thaiLunarCount} ค่ำ เดือน ${thaiLunarMonth} ปี${info.thaiZodiac}`
-        document.getElementById('rEngMonthYear').innerText =
-          `${ENG_MONTHS[targetDate.getMonth()]} ${targetDate.getFullYear()}`
+        document.getElementById('rThaiMonthYear').innerText = `${info.day} ${info.monthNameTH} ${info.yearBE}`;
+        document.getElementById('rThaiLunarHeader').innerText = `${info.thaiPhase} ${thaiLunarCount} ค่ำ เดือน ${thaiLunarMonth} ปี${info.thaiZodiac}`;
+        document.getElementById('rEngMonthYear').innerText = `${ENG_MONTHS[targetDate.getMonth()]} ${targetDate.getFullYear()}`;
 
-        const chiDayText =
-          info.day <= 10
-            ? CHI_NUMS[info.day]
-            : info.day < 20
-              ? '十' + CHI_NUMS[info.day - 10]
-              : info.day === 20
-                ? '二十'
-                : info.day < 30
-                  ? '二十' + CHI_NUMS[info.day - 20]
-                  : '三十' + CHI_NUMS[info.day - 30]
+        const chiDayText = info.day <= 10
+          ? CHI_NUMS[info.day]
+          : (info.day < 20 ? "十" + CHI_NUMS[info.day - 10]
+          : (info.day === 20 ? "二十"
+          : (info.day < 30 ? "二十" + CHI_NUMS[info.day - 20] : "三十" + CHI_NUMS[info.day - 30])));
 
-        document.getElementById('rChiSolarLabel').innerText =
-          `陽曆${CHI_NUMS[targetDate.getMonth() + 1]}月${chiDayText}日`
+        document.getElementById('rChiSolarLabel').innerText = `陽曆${CHI_NUMS[targetDate.getMonth() + 1]}月${chiDayText}日`;
 
-        document.getElementById('rBannerThai').innerText =
-          DAYS_TH[info.dayOfWeekIndex]
-        document.getElementById('rBannerChinese').innerText =
-          DAYS_CH[info.dayOfWeekIndex]
-        document.getElementById('rBannerEng').innerText =
-          DAYS_EN[info.dayOfWeekIndex]
+        document.getElementById('rBannerThai').innerText = DAYS_TH[info.dayOfWeekIndex];
+        document.getElementById('rBannerChinese').innerText = DAYS_CH[info.dayOfWeekIndex];
+        document.getElementById('rBannerEng').innerText = DAYS_EN[info.dayOfWeekIndex];
 
-        const sizeLabel = info.chiDayNum > 29 ? '大' : '小'
-        document.getElementById('rChiLunarDate').innerText =
-          `${info.chiYearName} ${info.chiMonthStr}${sizeLabel} ${info.chiDayStr}`
-        document.getElementById('rThaiSummary').innerHTML =
-          `ปี${info.thaiZodiac} เดือน ${info.chiMonthNum} จีน<br/>${info.thaiPhase} ${thaiLunarCount} ค่ำ เดือน ${thaiLunarMonth} ไทย`
+        const sizeLabel = info.chiDayNum > 29 ? "大" : "小";
+        document.getElementById('rChiLunarDate').innerText = `${info.chiYearName} ${info.chiMonthStr}${sizeLabel} ${info.chiDayStr}`;
+        document.getElementById('rThaiSummary').innerHTML = `ปี${info.thaiZodiac} เดือน ${info.chiMonthNum} จีน<br/>${info.thaiPhase} ${thaiLunarCount} ค่ำ เดือน ${thaiLunarMonth} ไทย`;
       }
 
       async function generatePremiumImage() {
-        document.getElementById('placeholder').style.display = 'none'
-        document.getElementById('previewImg').style.display = 'none'
-        document.getElementById('actionBar').style.display = 'none'
-        document.getElementById('loader').style.display = 'flex'
+        document.getElementById('placeholder').style.display = 'none';
+        document.getElementById('previewImg').style.display = 'none';
+        document.getElementById('actionBar').style.display = 'none';
+        document.getElementById('loader').style.display = 'flex';
 
-        calculateDatesAndRender()
-        syncInputsToCanvas()
-        updateStarsPreview()
+        calculateDatesAndRender();
+        syncInputsToCanvas();
+        updateStarsPreview();
 
-        const flagReal = document.getElementById('rFlagReal')
-        const flagBg = document.getElementById('rFlagBg')
+        const flagReal = document.getElementById('rFlagReal');
+        const flagBg = document.getElementById('rFlagBg');
 
         try {
-          await document.fonts.ready
-          await Promise.all([awaitImageLoad(flagReal), awaitImageLoad(flagBg)])
-          await new Promise(resolve => setTimeout(resolve, 800))
+          await document.fonts.ready;
+          await Promise.all([awaitImageLoad(flagReal), awaitImageLoad(flagBg)]);
+          await new Promise(resolve => setTimeout(resolve, 800));
 
-          const renderZone = document.getElementById('renderZone')
+          const renderZone = document.getElementById('renderZone');
           const canvas = await html2canvas(renderZone, {
             scale: 1.25,
             useCORS: true,
             backgroundColor: null,
             logging: false,
-          })
+          });
 
-          currentBase64Image = canvas.toDataURL('image/jpeg', 0.95)
-          const previewImg = document.getElementById('previewImg')
-          previewImg.src = currentBase64Image
+          currentBase64Image = canvas.toDataURL('image/jpeg', 0.95);
+          const previewImg = document.getElementById('previewImg');
+          previewImg.src = currentBase64Image;
 
-          document.getElementById('loader').style.display = 'none'
-          previewImg.style.display = 'block'
-          document.getElementById('actionBar').style.display = 'grid'
+          document.getElementById('loader').style.display = 'none';
+          previewImg.style.display = 'block';
+          document.getElementById('actionBar').style.display = 'grid';
         } catch (error) {
-          console.error('Render Error:', error)
-          alert('เกิดข้อผิดพลาดในการจำลองปฏิทิน กรุณาลองใหม่อีกครั้งครับผม 🐷')
-          document.getElementById('loader').style.display = 'none'
-          document.getElementById('placeholder').style.display = 'block'
+          console.error('Render Error:', error);
+          alert('เกิดข้อผิดพลาดในการจำลองปฏิทิน กรุณาลองใหม่อีกครั้งครับผม 🐷');
+          document.getElementById('loader').style.display = 'none';
+          document.getElementById('placeholder').style.display = 'block';
         }
       }
 
       function saveImage() {
-        if (!currentBase64Image) return
-        const data = LOTTERY_DATA[
-          document.getElementById('lotteryType').value
-        ] || { name: 'lotto' }
-        const dateVal = document.getElementById('dateInput').value || 'date'
-        const link = document.createElement('a')
-        link.download = `joakmu-calendar-${data.name.replace(/\s+/g, '')}-${dateVal}.jpg`
-        link.href = currentBase64Image
-        link.click()
+        if (!currentBase64Image) return;
+        const data = LOTTERY_DATA[document.getElementById('lotteryType').value] || { name: 'lotto' };
+        const dateVal = document.getElementById('dateInput').value || 'date';
+        const link = document.createElement('a');
+        link.download = `joakmu-calendar-${data.name.replace(/\s+/g, '')}-${dateVal}.jpg`;
+        link.href = currentBase64Image;
+        link.click();
       }
 
       async function shareImage() {
-        if (!currentBase64Image) return
+        if (!currentBase64Image) return;
         try {
-          const res = await fetch(currentBase64Image)
-          const blob = await res.blob()
-          const file = new File([blob], 'joakmu-calendar.jpg', {
-            type: 'image/jpeg',
-          })
-          await navigator.share({
-            title: 'แนวทางปฏิทินฉีกโบราณ สำนักโจ๊กหมู',
-            files: [file],
-          })
+          const res = await fetch(currentBase64Image);
+          const blob = await res.blob();
+          const file = new File([blob], 'joakmu-calendar.jpg', { type: 'image/jpeg' });
+          await navigator.share({ title: 'แนวทางปฏิทินฉีกโบราณ สำนักโจ๊กหมู', files: [file] });
         } catch (err) {
           if (err.name !== 'AbortError') {
-            alert(
-              'เบราว์เซอร์นี้ไม่รองรับการแชร์ไฟล์ภาพโดยตรง แนะนำให้กดบันทึกรูปลงเครื่องแล้วโพสต์ด้วยตนเองนะครับ 🐷'
-            )
+            alert('เบราว์เซอร์นี้ไม่รองรับการแชร์ไฟล์ภาพโดยตรง แนะนำให้กดบันทึกรูปลงเครื่องแล้วโพสต์ด้วยตนเองนะครับ 🐷');
           }
         }
       }
 
       function copyCaption() {
         if (!calculatedLunarInfo) {
-          alert(
-            'กรุณากดปุ่ม "🔮 อัปเดตข้อมูล & สลักภาพโบราณ" เพื่อเปิดใช้งานระบบคัดลอกแคปชั่นอย่างเป็นทางการ'
-          )
-          return
+          alert('กรุณากดปุ่ม "🔮 อัปเดตข้อมูล & สลักภาพโบราณ" เพื่อเปิดใช้งานระบบคัดลอกแคปชั่นอย่างเป็นทางการ');
+          return;
         }
-        const data = LOTTERY_DATA[
-          document.getElementById('lotteryType').value
-        ] || { name: 'แนวทาง' }
-        const typeVal = 'แนวทาง' + data.name
-        const thaiDateStr = `${calculatedLunarInfo.day} ${calculatedLunarInfo.monthNameTH} ${calculatedLunarInfo.yearBE}`
+        const data = LOTTERY_DATA[document.getElementById('lotteryType').value] || { name: 'แนวทาง' };
+        const typeVal = "แนวทาง" + data.name;
+        const thaiDateStr = `${calculatedLunarInfo.day} ${calculatedLunarInfo.monthNameTH} ${calculatedLunarInfo.yearBE}`;
 
-        if (availableCaptions.length === 0)
-          availableCaptions = [...PREMIUM_CAPTIONS]
-        const randomIndex = Math.floor(Math.random() * availableCaptions.length)
-        const selectedCaption = availableCaptions.splice(randomIndex, 1)[0]
-        const finalCaption = selectedCaption.replace(/\[NAME\]/g, typeVal)
-        const hashtagName = typeVal.replace(/\s+/g, '')
+        if (availableCaptions.length === 0) availableCaptions = [...PREMIUM_CAPTIONS];
+        const randomIndex = Math.floor(Math.random() * availableCaptions.length);
+        const selectedCaption = availableCaptions.splice(randomIndex, 1)[0];
+        const finalCaption = selectedCaption.replace(/\[NAME\]/g, typeVal);
+        const hashtagName = typeVal.replace(/\s+/g, '');
 
-        const formattedText = `🐷 ปฏิทินฉีกจีนนำโชค สำนักโจ๊กหมู 🐷\n🗓 งวดประจำวันที่: ${thaiDateStr}\n🎯 แนวทาง: ${typeVal}\n\n${finalCaption}\n\n#โจ๊กหมู #ปฏิทินจีนนำโชค #เลขเด่นปฏิทินโบราณ #แนวทางหวย #${hashtagName}`
+        const formattedText = `🐷 ปฏิทินฉีกจีนนำโชค สำนักโจ๊กหมู 🐷\n🗓 งวดประจำวันที่: ${thaiDateStr}\n🎯 แนวทาง: ${typeVal}\n\n${finalCaption}\n\n#โจ๊กหมู #ปฏิทินจีนนำโชค #เลขเด่นปฏิทินโบราณ #แนวทางหวย #${hashtagName}`;
 
         try {
-          const textElement = document.createElement('textarea')
-          textElement.value = formattedText
-          document.body.appendChild(textElement)
-          textElement.select()
-          document.execCommand('copy')
-          document.body.removeChild(textElement)
-          alert(
-            '📋 คัดลอกแคปชั่นพร้อมแท็กเฉพาะ เรียบร้อยแล้วค๊าบ! โพสต์พร้อมภาพในเพจได้เลยครับพี่!'
-          )
+          const textElement = document.createElement('textarea');
+          textElement.value = formattedText;
+          document.body.appendChild(textElement);
+          textElement.select();
+          document.execCommand('copy');
+          document.body.removeChild(textElement);
+          alert('📋 คัดลอกแคปชั่นพร้อมแท็กเฉพาะ เรียบร้อยแล้วค๊าบ! โพสต์พร้อมภาพในเพจได้เลยครับพี่!');
         } catch (err) {
-          alert('ไม่สามารถคัดลอกได้โดยอัตโนมัติ กรุณาลองใหม่อีกครั้ง')
+          alert('ไม่สามารถคัดลอกได้โดยอัตโนมัติ กรุณาลองใหม่อีกครั้ง');
         }
       }
 
-      window.onload = function () {
-        const d = new Date()
-        const yyyy = d.getFullYear()
-        const mm = String(d.getMonth() + 1).padStart(2, '0')
-        const dd = String(d.getDate()).padStart(2, '0')
-        document.getElementById('dateInput').value = `${yyyy}-${mm}-${dd}`
+      window.onload = function() {
+        const d = new Date();
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        document.getElementById('dateInput').value = `${yyyy}-${mm}-${dd}`;
 
-        updateSkin()
-        updateLotteryTitle()
-        calculateDatesAndRender()
+        updateSkin();
+        updateLotteryTitle();
+        calculateDatesAndRender();
 
-        if (
-          navigator.canShare &&
-          navigator.canShare({
-            files: [new File([], 't.jpg', { type: 'image/jpeg' })],
-          })
-        ) {
-          document.getElementById('shareBtn').style.display = 'inline-flex'
+        if (navigator.canShare && navigator.canShare({ files: [new File([], 't.jpg', { type: 'image/jpeg' })] })) {
+          document.getElementById('shareBtn').style.display = 'inline-flex';
         } else {
-          document.getElementById('shareBtn').style.display = 'none'
+          document.getElementById('shareBtn').style.display = 'none';
         }
-      }
+      };
     </script>
   </body>
 </html>

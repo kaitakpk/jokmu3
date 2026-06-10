@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>โจ๊กหมู - ระบบสร้างภาพปฏิทินนำโชคย้อนยุค V4</title>
+    <title>โจ๊กหมู - ระบบสร้างภาพปฏิทินนำโชคย้อนยุค V4 (พร้อมระบบวินเลข)</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Charm:wght@400;700&display=swap"
       rel="stylesheet"
@@ -234,6 +234,19 @@
       }
       .number-sub-box input:focus {
         border-color: #ef4444;
+      }
+
+      /* วินเลข Panel เฉพาะ */
+      .win-panel {
+        background: #1e293b;
+        border: 1px dashed #3b82f6;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 4px;
+      }
+      .win-panel .panel-section-title {
+        color: #60a5fa;
+        border-bottom-color: #334155;
       }
 
       .btn-generate {
@@ -1070,6 +1083,7 @@
                 <option value="lao_redcross">ลาว กาชาด</option>
               </optgroup>
               <optgroup label="🇻🇳 หวยฮานอย">
+                <option value="hanoi_all">ฮานอยรวม</option>
                 <option value="hanoi_normal">ฮานอย ปกติ</option>
                 <option value="hanoi_special">ฮานอย พิเศษ</option>
                 <option value="hanoi_vip">ฮานอย VIP</option>
@@ -1127,6 +1141,65 @@
             />
           </div>
 
+          <!-- เครื่องมือวินเลขเข้าปฏิทิน -->
+          <div class="win-panel">
+            <div class="panel-section-title">🪄 ระบบวินเลขเข้าปฏิทิน</div>
+            <p style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 8px">
+              กรอกเลขโดด (เช่น 12345) ระบบจะจัดชุดวินไปกลับและโต๊ด
+              แล้วสุ่มเทลงในตารางปฏิทินให้ครบทุกช่องอัตโนมัติ
+            </p>
+
+            <div style="display: flex; gap: 8px; margin-bottom: 8px">
+              <input
+                type="text"
+                id="winInput"
+                class="form-control"
+                placeholder="กรอกตัวเลขที่นี่ เช่น 12345"
+                style="border-color: #334155; background: #0f172a; flex: 1"
+              />
+              <button
+                class="btn-randomize"
+                onclick="randomWinInput(6)"
+                style="
+                  padding: 8px 12px;
+                  white-space: nowrap;
+                  border-color: #3b82f6;
+                  color: #60a5fa;
+                  background: rgba(59, 130, 246, 0.15);
+                "
+              >
+                🎲 สุ่ม 6 ตัว
+              </button>
+            </div>
+
+            <label
+              style="
+                font-size: 0.8rem;
+                color: #cbd5e1;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 10px;
+                cursor: pointer;
+              "
+            >
+              <input type="checkbox" id="winIncludeDoubles" />
+              <span>รวมเลขเบิ้ล (ถ้ามีตัวซ้ำ จะลงช่อง 2 ตัวปกติด้วย)</span>
+            </label>
+            <button
+              class="btn-randomize"
+              style="
+                width: 100%;
+                background: rgba(59, 130, 246, 0.15);
+                color: #60a5fa;
+                border-color: #3b82f6;
+              "
+              onclick="autoFillFromWin()"
+            >
+              ⚡ วินเลข & สุ่มจัดลงปฏิทิน
+            </button>
+          </div>
+
           <div class="control-group">
             <div
               style="
@@ -1136,9 +1209,11 @@
                 margin-bottom: 4px;
               "
             >
-              <label style="margin: 0">ชุดตัวเลขแนวทางนำโชค</label>
+              <label style="margin: 0"
+                >ชุดตัวเลขแนวทางนำโชค (แก้ไขเองได้)</label
+              >
               <button class="btn-randomize" onclick="randomizeAllNumbers()">
-                🎲 สุ่มเลขชุดใหม่
+                🎲 สุ่มแบบปกติ
               </button>
             </div>
 
@@ -1444,7 +1519,7 @@
               <span>🏮</span>
               <p style="font-weight: bold">ปฏิทินจีนย้อนยุคสำนักโจ๊กหมู</p>
               <p style="font-size: 0.85rem; margin-top: 5px; color: #6b7280">
-                ปรับแต่งหรือสุ่มเลขแนวทาง แล้วกด "สลักภาพ" เพื่อดูพรีวิว
+                ปรับแต่งหรือวินเลข แล้วกด "สลักภาพ" เพื่อดูพรีวิว
               </p>
             </div>
             <img
@@ -1625,7 +1700,6 @@
         if (navigator.clipboard && window.isSecureContext) {
           await navigator.clipboard.writeText(text)
         } else {
-          // Fallback for non-secure context / old browsers
           const ta = document.createElement('textarea')
           ta.value = text
           ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0'
@@ -1808,6 +1882,7 @@
         lao_samakkhi_vip: { name: 'ลาวสามัคคี VIP', flag: 'la', emoji: '🇱🇦' },
         lao_star_vip: { name: 'ลาว Star VIP', flag: 'la', emoji: '🇱🇦' },
         lao_redcross: { name: 'ลาวกาชาด', flag: 'la', emoji: '🇱🇦' },
+        hanoi_all: { name: 'ฮานอยรวม', flag: 'vn', emoji: '🇻🇳' },
         hanoi_normal: { name: 'ฮานอยปกติ', flag: 'vn', emoji: '🇻🇳' },
         hanoi_special: { name: 'ฮานอยพิเศษ', flag: 'vn', emoji: '🇻🇳' },
         hanoi_vip: { name: 'ฮานอย VIP', flag: 'vn', emoji: '🇻🇳' },
@@ -1867,7 +1942,6 @@
           }
           imgElem.addEventListener('load', onLoad, { once: true })
           imgElem.addEventListener('error', onError, { once: true })
-          // Safety timeout: 5s
           const t = setTimeout(() => {
             cleanup()
             resolve(false)
@@ -1891,7 +1965,6 @@
 
         const ok = await awaitImageLoad(flagReal)
         if (!ok) {
-          // Flag CDN failed — show emoji fallback circle instead
           flagReal.style.display = 'none'
           flagBg.src = ''
           fallback.style.display = 'flex'
@@ -1900,7 +1973,7 @@
       }
 
       // ====================================================
-      //  LUNAR DATE (approximation)
+      //  LUNAR DATE
       // ====================================================
       function calculateLunarDate(targetDate) {
         const refDate = new Date(2026, 5, 5)
@@ -1983,16 +2056,12 @@
         r.setProperty('--paper-border', s.border)
       }
 
-      // ====================================================
-      //  LOTTERY TITLE + FLAG
-      // ====================================================
       function updateLotteryTitle() {
         const data = LOTTERY_DATA[
           document.getElementById('lotteryType').value
         ] || { name: 'แนวทาง', flag: 'th', emoji: '🏳' }
         document.getElementById('rLotteryTypeName').innerText =
           'แนวทาง' + data.name
-        // Load flags asynchronously — don't await here; generatePremiumImage awaits separately
         const flagReal = document.getElementById('rFlagReal')
         const flagBg = document.getElementById('rFlagBg')
         flagReal.src = getFlagUrl(data.flag)
@@ -2001,7 +2070,7 @@
       }
 
       // ====================================================
-      //  RANDOMIZE (FIX: no duplicates across 2-digit/3-digit, proper loop)
+      //  ระบบสุ่มเลขปกติ (สำหรับปุ่ม สุ่มแบบปกติ)
       // ====================================================
       function secureRandom(min, max) {
         const arr = new Uint32Array(1)
@@ -2013,15 +2082,11 @@
         const max = Math.pow(10, digits) - 1
         const limit = Math.min(count, max + 1)
         const set = new Set()
-
-        // Add forced values first (padded, unique only)
         for (const n of forced) {
           const val = String(n).padStart(digits, '0')
           if (val.length === digits) set.add(val)
           if (set.size >= limit) break
         }
-
-        // Fill remaining with random, max 500 attempts to avoid infinite loop
         let attempts = 0
         while (set.size < limit && attempts < 500) {
           attempts++
@@ -2036,12 +2101,10 @@
         do {
           den2 = secureRandom(1, 9)
         } while (den1 === den2)
-
         const runStr = `${den1} - ${den2}`
         const db1 = `${den1}${den1}`,
           db2 = `${den2}${den2}`
 
-        // 2-digit: force den combos, then random
         const forcedTwo = [
           `${den1}${den2}`,
           `${den2}${den1}`,
@@ -2050,8 +2113,6 @@
         ]
         const twoDigits = getUniqueSets(8, 2, forcedTwo)
 
-        // 3-digit: force combos using den, EXCLUDE any 2-digit match
-        const twoSet = new Set(twoDigits)
         const rVal = () => secureRandom(0, 9)
         const forcedThree = [
           `${den1}${den2}${rVal()}`,
@@ -2059,15 +2120,11 @@
           `${den2}${rVal()}${den1}`,
           `${den1}${rVal()}${den2}`,
         ]
-        // getUniqueSets handles de-dup within 3-digit set (no overlap needed vs 2-digit since lengths differ)
         const threeDigits = getUniqueSets(8, 3, forcedThree)
 
-        // Grid values from pool of den + 2-digit digits
         let pool = [String(den1), String(den2)]
         twoDigits.forEach(v => {
-          if (v.length === 2) {
-            pool.push(v[0], v[1])
-          }
+          if (v.length === 2) pool.push(v[0], v[1])
         })
         let uniq = [...new Set(pool)].filter(x => x >= '0' && x <= '9')
         for (const f of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']) {
@@ -2091,6 +2148,132 @@
             threeDigits[i - 1] || '000'
         }
         syncInputsToCanvas()
+      }
+
+      // ====================================================
+      //  ระบบวินเลข และ สุ่มจัดลงตารางปฏิทิน (เพิ่มเข้ามาใหม่)
+      // ====================================================
+      function autoFillFromWin() {
+        const inputVal = document.getElementById('winInput').value
+        const includeDoubles =
+          document.getElementById('winIncludeDoubles').checked
+
+        let rawArray = inputVal.match(/\d/g) || []
+        const digits = [...new Set(rawArray)]
+        const n = digits.length
+
+        if (n < 3) {
+          showToast(
+            '⚠️ กรุณากรอกเลขโดดอย่างน้อย 3 ตัวครับ เพื่อให้วิน 3 ตัวได้',
+            3500
+          )
+          return
+        }
+
+        // 1. จัดวิน 2 ตัว
+        let win2All = []
+        let doublesAll = [] // เก็บเลขเบิ้ลไว้ลงช่องเบิ้ลโดยเฉพาะ
+        for (let i = 0; i < n; i++) {
+          for (let j = 0; j < n; j++) {
+            if (i === j) {
+              doublesAll.push(digits[i] + digits[j])
+              if (includeDoubles) win2All.push(digits[i] + digits[j])
+              continue
+            }
+            win2All.push(digits[i] + digits[j])
+          }
+        }
+
+        // 2. จัดวิน 3 ตัว (สลับโต๊ด)
+        let win3All = []
+        for (let i = 0; i < n - 2; i++) {
+          for (let j = i + 1; j < n - 1; j++) {
+            for (let k = j + 1; k < n; k++) {
+              let a = digits[i],
+                b = digits[j],
+                c = digits[k]
+              win3All.push(
+                a + b + c,
+                a + c + b,
+                b + a + c,
+                b + c + a,
+                c + a + b,
+                c + b + a
+              )
+            }
+          }
+        }
+
+        // Helper: สลับตำแหน่งอาร์เรย์ (Shuffle)
+        const shuffle = arr => [...arr].sort(() => Math.random() - 0.5)
+
+        // 3. เริ่มเทข้อมูลลง UI
+        // 3.1 ลงช่อง 2 ตัว (เอามา 8 ตัว)
+        const shuffledWin2 = shuffle(win2All)
+        for (let i = 1; i <= 8; i++) {
+          // ถ้าวิน 2 มีไม่ถึง 8 ตัว ก็จะวนเอาตัวที่วินได้มาใส่ให้เต็ม 8 ช่อง
+          document.getElementById(`two${i}`).value =
+            shuffledWin2[(i - 1) % shuffledWin2.length] || '00'
+        }
+
+        // 3.2 ลงช่องเบิ้ล (เอามา 2 ตัว)
+        const shuffledDoubles = shuffle(
+          doublesAll.length > 0
+            ? doublesAll
+            : [`${digits[0]}${digits[0]}`, `${digits[1]}${digits[1]}`]
+        )
+        document.getElementById('double1').value = shuffledDoubles[0] || '00'
+        document.getElementById('double2').value = shuffledDoubles[1] || '11'
+
+        // 3.3 ลงช่อง 3 ตัว (เอามา 8 ตัว)
+        const shuffledWin3 = shuffle(win3All)
+        for (let i = 1; i <= 8; i++) {
+          document.getElementById(`three${i}`).value =
+            shuffledWin3[(i - 1) % shuffledWin3.length] || '000'
+        }
+
+        // 3.4 สุ่มเด่น, วิ่งรูด และตารางทิศทาง จากเลขที่พิมพ์มา
+        const shuffledDigits = shuffle(digits)
+        document.getElementById('numDen1').value = shuffledDigits[0]
+        document.getElementById('numDen2').value = shuffledDigits[1]
+        document.getElementById('numRun').value =
+          `${shuffledDigits[0]} - ${shuffledDigits[1]}`
+
+        let gridInputs = [
+          'gridTop',
+          'gridLeft',
+          'gridCenter',
+          'gridRight',
+          'gridBottom',
+        ]
+        for (let i = 0; i < 5; i++) {
+          document.getElementById(gridInputs[i]).value = shuffledDigits[i % n]
+        }
+
+        // อัปเดตไปยัง Preview ทันที
+        syncInputsToCanvas()
+        showToast('⚡ วินเลขและสุ่มจัดลงตารางปฏิทินเรียบร้อยแล้วครับ!', 3000)
+      }
+
+      // ====================================================
+      //  ปุ่ม สุ่ม 6 ตัว (ใหม่)
+      // ====================================================
+      function randomWinInput(length) {
+        let digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        let res = []
+
+        // ดึงแบบสุ่มจาก 0-9 ทีละตัว ไม่ให้ซ้ำกัน
+        while (res.length < length && digits.length > 0) {
+          let idx = secureRandom(0, digits.length - 1)
+          res.push(digits[idx])
+          digits.splice(idx, 1)
+        }
+
+        // ใส่ลงไปในช่อง Input
+        document.getElementById('winInput').value = res.join('')
+
+        // ทริกเกอร์ให้มันคำนวณและหยอดลงตารางทันทีเลย
+        autoFillFromWin()
       }
 
       // ====================================================
@@ -2178,7 +2361,6 @@
 
       // ====================================================
       //  GENERATE IMAGE (html2canvas)
-      //  FIX: font preload timeout, flag fallback, button lock
       // ====================================================
       async function generatePremiumImage() {
         const btn = document.getElementById('btnGenerate')
@@ -2200,16 +2382,12 @@
         ] || { flag: 'th', emoji: '🏳' }
 
         try {
-          // 1. Wait for fonts with timeout
           await Promise.race([
             document.fonts.ready,
             new Promise(resolve => setTimeout(resolve, 3000)),
           ])
 
-          // 2. Load flags with fallback
           await loadFlagWithFallback(data.flag, data.emoji)
-
-          // 3. Extra settle time for layout
           await new Promise(resolve => setTimeout(resolve, 600))
 
           const renderZone = document.getElementById('renderZone')
@@ -2221,7 +2399,6 @@
             logging: false,
             imageTimeout: 8000,
             onclone(clonedDoc) {
-              // Ensure cloned flags inherit src
               const fReal = clonedDoc.getElementById('rFlagReal')
               const fBg = clonedDoc.getElementById('rFlagBg')
               if (fReal) fReal.crossOrigin = 'anonymous'
@@ -2294,7 +2471,7 @@
       }
 
       // ====================================================
-      //  COPY CAPTION  (FIX: uses navigator.clipboard)
+      //  COPY CAPTION
       // ====================================================
       async function copyCaption() {
         if (!calculatedLunarInfo) {
@@ -2348,7 +2525,6 @@
         updateLotteryTitle() // also calls randomize + syncCanvas
         calculateDatesAndRender()
 
-        // Show/hide native share button
         const canShare = !!(
           navigator.canShare &&
           (() => {
